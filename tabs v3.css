@@ -6,7 +6,7 @@
     --vc-mika-color-end: #753a75; /* Solid Dark Pink-Violet */
 }
 
-.guilds_c48ade {
+.guilds__5e434 {
     mask: none !important;
 }
 
@@ -147,7 +147,7 @@
                 display: none;
             }
 
-            .folderIcon__48112>svg>path {
+            .folderHeader__48112>svg>path {
                 /* d: path("M17.3 18.7a1 1 0 0 0 1.4-1.4L13.42 12l5.3-5.3a1 1 0 0 0-1.42-1.4L12 10.58l-5.3-5.3a1 1 0 0 0-1.4 1.42L10.58 12l-5.3 5.3a1 1 0 1 0 1.42 1.4L12 13.42l5.3 5.3Z") */
             }
         }
@@ -165,14 +165,14 @@
     display: none;
 }
 
-.sidebar_c48ade {
+.sidebar__5e434 {
     display: flex;
     flex-direction: column;
     height: calc(100vh - var(--custom-app-top-bar-height));
     width: calc(var(--custom-guild-sidebar-width) - 72px) !important;
 }
 
-.guilds_c48ade,
+.guilds__5e434,
 .tree_ef3116,
 .stack_dbd263 {
     display: contents;
@@ -228,7 +228,7 @@
     bottom: 0px;
 }
 
-.sidebarList_c48ade {
+.sidebarList__5e434 {
     height: 100%;
     flex: unset;
     border-left: 0px;
@@ -281,7 +281,7 @@
     }
 }
 
-.sidebar_c48ade:after {
+.sidebar__5e434:after {
     z-index: 5;
 }
 
