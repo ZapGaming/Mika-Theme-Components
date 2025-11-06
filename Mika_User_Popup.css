@@ -1,49 +1,108 @@
 :root {
   --badges-background: #00000000;
   /* --- NEW MICA & GLOW VARIABLES --- */
-  --mica-blur: 25px; /* Increase for more frost */
-  --mica-bg-opacity: 0.15; /* Base transparency */
+  --mica-blur: 30px; /* Stronger blur for more frost */
+  --mica-bg-opacity: 0.18; /* Slightly more opaque base */
   --mica-glow-color: 150, 200, 255; /* A vibrant blue/purple glow (R, G, B) */
-  --mica-border-color: rgba(255, 255, 255, 0.25);
+  --mica-border-color: rgba(255, 255, 255, 0.35); /* More visible border */
+  --intrusive-glow-color: 100, 255, 255; /* A bright cyan for the animated border */
+  --card-border-radius: 20px; /* More rounded corners for a modern feel */
+}
+
+/* --- Keyframe Animations --- */
+@keyframes border-light-scan {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 4px 60px rgba(var(--mica-glow-color), 0.5), 0 0 150px rgba(var(--mica-glow-color), 0.15); }
+  50% { box-shadow: 0 8px 80px rgba(var(--mica-glow-color), 0.7), 0 0 200px rgba(var(--mica-glow-color), 0.25); }
+  100% { box-shadow: 0 4px 60px rgba(var(--mica-glow-color), 0.5), 0 0 150px rgba(var(--mica-glow-color), 0.15); }
 }
 
 /* --- MICA/FROSTED GLASS EFFECT ON MAIN CARD CONTAINER --- */
 .layer__59d0d .outer_c0bea0 {
+  position: relative; /* Needed for ::before pseudo-element positioning */
+  overflow: hidden; /* Crucial to contain the animated pseudo-element */
+  z-index: 1; /* Ensure card is above other elements if applicable */
+
   /* Frosted Glass Core */
   background-color: rgba(255, 255, 255, var(--mica-bg-opacity));
-  backdrop-filter: blur(var(--mica-blur)) saturate(150%);
-  -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(150%);
+  backdrop-filter: blur(var(--mica-blur)) saturate(180%); /* Increased saturation */
+  -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(180%);
   
-  /* Complex Multi-Layered Glow */
+  /* Complex Multi-Layered Glow & Animation */
   box-shadow: 
-    /* Layer 1: Strong, defined primary glow */
-    0 4px 60px rgba(var(--mica-glow-color), 0.5), 
-    /* Layer 2: Wider, softer ambient light for luminosity */
-    0 0 150px rgba(var(--mica-glow-color), 0.15), 
-    /* Layer 3: Inner top highlight for a wet/sheen look */
-    inset 0 0 10px rgba(255, 255, 255, 0.2),
-    /* Layer 4: Subtle depth from inner shadow */
-    inset 0 0 5px rgba(0, 0, 0, 0.25);
+    inset 0 0 20px rgba(255, 255, 255, 0.25), /* Stronger inner highlight */
+    inset 0 0 10px rgba(0, 0, 0, 0.3),     /* Deeper inner shadow */
+    0 4px 60px rgba(var(--mica-glow-color), 0.5), /* Primary external glow */
+    0 0 150px rgba(var(--mica-glow-color), 0.15); /* Wider ambient glow */
+  animation: pulse-glow 8s infinite ease-in-out; /* Subtle breathing glow */
     
-  border: 1px solid var(--mica-border-color); /* Light defined edge */
-  border-radius: 16px; /* Ensure rounded corners for the style */
+  border: 1px solid var(--mica-border-color); /* More visible border */
+  border-radius: var(--card-border-radius); /* Consistent rounded corners */
   
-  /* Transition for smoother changes if Discord applies hover/active states */
-  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* Smoother transitions on hover/focus */
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
+/* --- Animated Intrusive Border Light (Pseudo-element) --- */
+.layer__59d0d .outer_c0bea0::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250%; /* Larger than the card to ensure full coverage on rotation */
+  height: 250%; /* Larger than the card */
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 180deg,
+    rgba(var(--intrusive-glow-color), 0.6) 200deg, /* Start of the light streak */
+    rgba(var(--intrusive-glow-color), 0.8) 220deg, /* Peak intensity */
+    rgba(var(--intrusive-glow-color), 0.6) 240deg, /* End of the light streak */
+    transparent 260deg,
+    transparent 360deg
+  );
+  filter: blur(25px); /* Soften the light */
+  opacity: 0.8; /* Make it noticeable */
+  z-index: -1; /* Place behind the card's content but within its overflow */
+  animation: border-light-scan 10s linear infinite; /* Continuous rotation */
+  pointer-events: none; /* Do not interfere with mouse events */
+}
+
+/* --- Hover Effect: Lift and intensify glow --- */
+.layer__59d0d .outer_c0bea0:hover {
+  transform: translateY(-8px) scale(1.01); /* More pronounced lift */
+  border-color: rgba(255, 255, 255, 0.6); /* Brighter border on hover */
+  box-shadow: 
+    inset 0 0 25px rgba(255, 255, 255, 0.3),
+    inset 0 0 12px rgba(0, 0, 0, 0.4),
+    0 12px 80px rgba(var(--mica-glow-color), 0.8), /* Stronger primary glow */
+    0 0 250px rgba(var(--mica-glow-color), 0.3); /* Wider, more intrusive ambient glow */
+}
+.layer__59d0d .outer_c0bea0:hover::before {
+    animation-duration: 6s; /* Faster scan on hover */
+    opacity: 1; /* Brighter animated light */
+}
+
 
 /* --- BADGES: Applying a lighter mica/glow look to the badge containers --- */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  /* Overrides existing 'border: none' and 'background: transparent' */
-  border: 1px solid rgba(255, 255, 255, 0.4); 
-  background: rgba(255, 255, 255, 0.15); /* Slightly less opaque than the main card */
-  backdrop-filter: blur(8px); /* Less blur for smaller elements */
+  border: 1px solid rgba(255, 255, 255, 0.45); /* Slightly more defined */
+  background: rgba(255, 255, 255, 0.1); /* Slightly less opaque to show more behind it */
+  backdrop-filter: blur(10px) saturate(150%); /* Slightly more blur/saturation */
   
-  /* Subtle badge glow */
-  box-shadow: 0 0 15px rgba(var(--mica-glow-color), 0.5);
+  box-shadow: 0 0 20px rgba(var(--mica-glow-color), 0.6); /* Stronger badge glow */
   
-  border-radius: 8px;
+  border-radius: 10px; /* Slightly more rounded */
+  transition: all 0.4s ease-out; /* Add transition for smoothness */
 }
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
+    box-shadow: 0 0 30px rgba(var(--mica-glow-color), 0.8), 0 0 50px rgba(var(--intrusive-glow-color), 0.3); /* Even stronger glow on badge hover */
+    transform: translateY(-2px);
+}
+
 
 /* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (kept intact) --- */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
@@ -152,13 +211,6 @@
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
   order: -3;
 }
-/* Removed old badge styling to allow the new one above to take effect: 
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  border: none;
-  background: var(--badges-background);
-  border-radius: 8px;
-}
-*/
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
   order: -1;
 }
