@@ -146,10 +146,10 @@
 }
 
 
-/* NAME, PRONOUNS, BADGES CONTAINER - CENTERED POSITION */
+/* NAME, PRONOUNS, BADGES CONTAINER - CENTERED & MOVED UP */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 105px; /* Default Discord position relative to banner */
+  top: 95px; /* ADJUSTED: Moved up from 105px to 95px to sit right below the 80px diameter avatar */
   left: 0;
   right: unset;
   bottom: unset;
