@@ -1,33 +1,18 @@
 :root {
   --badges-background: #00000000;
-  /* --- NEW MICA & GLOW VARIABLES --- */
-  --mica-blur: 40px; /* Max blur for deepest frost */
-  --mica-bg-opacity: 0.15; /* Base transparency */
-  --mica-glow-color: 150, 220, 255; /* Slightly brighter blue/purple glow (R, G, B) */
-  --mica-border-color: rgba(255, 255, 255, 0.4); /* Stronger visible border */
-  --intrusive-glow-color: 100, 255, 255; /* A bright cyan for the animated border */
-  --card-border-radius: 25px; /* Deeper rounded corners for a modern, techy look */
+  /* --- MICA VARIABLES (No Glow Colors) --- */
+  --mica-blur: 45px; /* Deepest blur for strong frosted effect */
+  --mica-bg-opacity: 0.18; /* Base transparency */
+  --mica-border-color: rgba(255, 255, 255, 0.5); /* Strong, visible white border */
+  --card-border-radius: 25px; /* Deepest rounded corners */
 }
 
-/* --- Keyframe Animations --- */
+/* --- Keyframe Animation (Only Sheen remains) --- */
 
-/* 1. Animated Sheen/Reflection for Glass Effect */
+/* 1. Animated Sheen/Reflection for Glass Effect (More visible streak) */
 @keyframes glass-sheen {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* 2. Border Light Scan (Faster/More Intrusive) */
-@keyframes border-light-scan {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* 3. Breathing Glow Pulse (More intense) */
-@keyframes pulse-glow {
-  0% { box-shadow: 0 5px 70px rgba(var(--mica-glow-color), 0.5), 0 0 160px rgba(var(--mica-glow-color), 0.2); }
-  50% { box-shadow: 0 10px 100px rgba(var(--mica-glow-color), 0.8), 0 0 250px rgba(var(--mica-glow-color), 0.35); }
-  100% { box-shadow: 0 5px 70px rgba(var(--mica-glow-color), 0.5), 0 0 160px rgba(var(--mica-glow-color), 0.2); }
+  0% { background-position: -200% 0; opacity: 0.8; }
+  100% { background-position: 200% 0; opacity: 0.8; }
 }
 
 /* --- MAIN CARD CONTAINER (Outer Shell) --- */
@@ -38,107 +23,87 @@
 
   /* Frosted Glass Core */
   background-color: rgba(255, 255, 255, var(--mica-bg-opacity));
-  backdrop-filter: blur(var(--mica-blur)) saturate(200%); /* Max saturation for crystal clear frost */
+  backdrop-filter: blur(var(--mica-blur)) saturate(200%);
   -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(200%);
   
   /* Add Sheen Gradient to the background */
   background-image: linear-gradient(
       105deg,
       rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0.15) 50%, /* The light streak */
+      rgba(255, 255, 255, 0.2) 50%, /* Light streak intensity */
       rgba(255, 255, 255, 0) 60%
   );
   background-size: 200% 100%; 
   
-  /* Combined Animation: Pulse + Sheen */
-  animation: pulse-glow 7s infinite ease-in-out, glass-sheen 10s linear infinite;
+  /* Animation: Only the Sheen remains */
+  animation: glass-sheen 10s linear infinite;
     
-  /* Glow and Inner Shadow */
+  /* Inner Shadow and Highlight (No external glow) */
   box-shadow: 
-    inset 0 0 25px rgba(255, 255, 255, 0.3), /* Stronger inner highlight */
-    inset 0 0 12px rgba(0, 0, 0, 0.4),     /* Deeper inner shadow */
-    0 5px 70px rgba(var(--mica-glow-color), 0.7), /* Primary external glow */
-    0 0 200px rgba(var(--mica-glow-color), 0.2); /* Wider ambient glow */
+    inset 0 0 30px rgba(255, 255, 255, 0.4), /* Stronger inner highlight */
+    inset 0 0 15px rgba(0, 0, 0, 0.5);      /* Deeper inner shadow */
     
   border: 1px solid var(--mica-border-color); 
   border-radius: var(--card-border-radius); 
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- ANIMATED INTRUSIVE BORDER LIGHT (Pseudo-element) --- */
+/* --- ANIMATED BORDER LIGHT (REMOVED: Was in ::before) --- */
 .layer__59d0d .outer_c0bea0::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300%; /* Even larger for a sweeping effect */
-  height: 300%; 
-  background: conic-gradient(
-    transparent 0deg,
-    transparent 180deg,
-    rgba(var(--intrusive-glow-color), 0.8) 200deg,
-    rgba(var(--intrusive-glow-color), 1) 220deg, /* Peak intensity */
-    rgba(var(--intrusive-glow-color), 0.8) 240deg,
-    transparent 260deg,
-    transparent 360deg
-  );
-  filter: blur(35px); /* Increased blur for a softer light trail */
-  opacity: 0.9; 
-  z-index: -1;
-  animation: border-light-scan 8s linear infinite; /* Faster scan */
-  pointer-events: none;
+  /* This element is now empty to ensure no intrusive lighting appears */
+  content: none;
 }
 
-/* --- SUB CONTAINER LAYERING: Body Content Area --- */
+
+/* --- SUB CONTAINER LAYERING: Body Content Area (Nested Mica Layer) --- */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   position: relative;
-  /* Create an inner layer distinct from the main shell */
   background-color: rgba(255, 255, 255, 0.08); 
   border-radius: 16px; /* Nested curve */
-  margin: 10px 16px 16px 16px; /* Spacing from main card edges */
+  margin: 10px 16px 16px 16px; 
   padding: 16px; 
   backdrop-filter: blur(5px);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3); /* Deeper inner shadow */
 }
 
-/* --- Hover Effect: Lift and intensify glow --- */
+/* --- Hover Effect: Lift and intensify depth (No glow) --- */
 .layer__59d0d .outer_c0bea0:hover {
-  transform: translateY(-10px) scale(1.02); /* More lift and scale */
-  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-12px) scale(1.03); /* Increased lift and scale */
+  border-color: rgba(255, 255, 255, 0.9);
+  /* Hover Box Shadow (Only Inner Shadows/Highlights) */
   box-shadow: 
-    inset 0 0 30px rgba(255, 255, 255, 0.4),
-    inset 0 0 15px rgba(0, 0, 0, 0.5),
-    0 15px 120px rgba(var(--mica-glow-color), 1), /* Maximum intrusive primary glow */
-    0 0 300px rgba(var(--mica-glow-color), 0.4); /* Maximum intrusive ambient glow */
+    inset 0 0 35px rgba(255, 255, 255, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.6);
 }
 .layer__59d0d .outer_c0bea0:hover::before {
-    animation-duration: 4s; /* Very fast scan on hover */
-    opacity: 1; 
-    filter: blur(40px); /* Maximize border light glow */
+    /* Ensure the pseudo element remains hidden on hover */
+    content: none;
 }
 
-/* --- BADGES: Custom styling with curves --- */
+/* --- BADGES: Custom styling with curves (Pill Shape) --- */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
   border: 1px solid rgba(255, 255, 255, 0.5); 
   background: rgba(255, 255, 255, 0.1); 
   backdrop-filter: blur(12px) saturate(180%); 
   
-  /* Use a strong curve/pill shape */
-  border-radius: 9999px; /* Pill shape */
-  padding: 4px 10px; /* Adjust padding for pill shape */
+  /* Pill shape */
+  border-radius: 9999px; 
+  padding: 4px 10px; 
   
-  box-shadow: 0 0 25px rgba(var(--mica-glow-color), 0.7); 
+  /* REMOVED GLOW */
+  box-shadow: none; 
   transition: all 0.4s ease-out;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-    box-shadow: 0 0 40px rgba(var(--mica-glow-color), 1), 0 0 60px rgba(var(--intrusive-glow-color), 0.4); 
-    transform: translateY(-3px) scale(1.05); /* Pronounced badge lift */
+    /* REMOVED GLOW on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Simple dark shadow for depth */
+    transform: translateY(-2px) scale(1.06); 
 }
 
-/* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (Kept layout positioning minimal) --- */
+/* --- LAYOUT FIXES: Keep Discord's default positioning for elements inside the card --- */
 
-/* Header Layering - Giving the top mask area a slightly less transparent background */
+/* Header Layering - Essential for the card's top shape */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
   min-height: 220px !important;
   background-color: rgba(255, 255, 255, 0.05); /* Header distinct background */
@@ -159,84 +124,17 @@
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
   mask: none;
 }
-.layer__59d0d .outer_c0bea0 .wrapper__4106a {
-  flex-direction: column;
-}
-.layer__59d0d .outer_c0bea0 .container_ab8609 {
-  top: unset;
-  right: unset;
-  bottom: -4px;
-  left: 16px;
-  z-index: 2;
-  border-radius: 0;
-}
-.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  min-width: unset;
-  max-width: unset;
-  border-radius: 0;
-}
-.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609::before, .layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609::after {
-  display: none;
-}
-.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 > .inner_ab8609 {
-  padding: 0;
-  background: transparent;
-}
-.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 > .inner_ab8609 > .content_ab8609 .text-sm\/normal_cf4812 {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 270px;
-}
-.layer__59d0d .outer_c0bea0 .outer_ab8609::before, .layer__59d0d .outer_c0bea0 .outer_ab8609::after {
-  display: none;
-}
+/* Ensure the avatar is back in its default position (remove centering) */
 .layer__59d0d .outer_c0bea0 .avatar__75742 {
-  top: 15px !important;
-  left: calc(50% - 40px) !important;
+  top: unset !important; /* Revert */
+  left: unset !important; /* Revert */
 }
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab {
-  top: 0;
-  left: 0;
-}
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab foreignObject {
-  mask: none !important;
-}
+/* Revert specific style masks that break the visuals */
 .layer__59d0d .outer_c0bea0 .mask__44b0c circle,
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
   display: none;
 }
+/* Hide the nickname edit icon which can be misplaced */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .nicknameIcons__63ed3 {
-  /* Hiding this specific element that contains the nickname edit icon */
   display: none; 
-}
-/* Revert the username/tags container back to its default positioning */
-.layer__59d0d .outer_c0bea0 .container__63ed3,
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3,
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3,
-.layer__59d0d .outer_c0bea0 .tags__63ed3 {
-  /* Remove all previously added positioning/flex/centering properties */
-  position: unset; 
-  top: unset; 
-  left: unset;
-  right: unset;
-  width: unset;
-  text-align: unset;
-  justify-content: unset;
-  justify-items: unset;
-  flex-direction: unset;
-  order: unset;
-  margin-top: unset;
-}
-/* Ensure the H1 (username) styling is also reverted */
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
-  display: unset;
-  text-align: unset;
-}
-/* Keep the body content section styled as a sub-container */
-.layer__59d0d .outer_c0bea0 .body__5be3e,
-.layer__59d0d .outer_c0bea0 .body_ce8328 {
-  position: static;
 }
