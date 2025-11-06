@@ -1,112 +1,148 @@
 :root {
   --badges-background: #00000000;
   /* --- NEW MICA & GLOW VARIABLES --- */
-  --mica-blur: 30px; /* Stronger blur for more frost */
-  --mica-bg-opacity: 0.18; /* Slightly more opaque base */
-  --mica-glow-color: 150, 200, 255; /* A vibrant blue/purple glow (R, G, B) */
-  --mica-border-color: rgba(255, 255, 255, 0.35); /* More visible border */
+  --mica-blur: 40px; /* Max blur for deepest frost */
+  --mica-bg-opacity: 0.15; /* Base transparency */
+  --mica-glow-color: 150, 220, 255; /* Slightly brighter blue/purple glow (R, G, B) */
+  --mica-border-color: rgba(255, 255, 255, 0.4); /* Stronger visible border */
   --intrusive-glow-color: 100, 255, 255; /* A bright cyan for the animated border */
-  --card-border-radius: 20px; /* More rounded corners for a modern feel */
+  --card-border-radius: 25px; /* Deeper rounded corners for a modern, techy look */
 }
 
 /* --- Keyframe Animations --- */
+
+/* 1. Animated Sheen/Reflection for Glass Effect */
+@keyframes glass-sheen {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 2. Border Light Scan (Faster/More Intrusive) */
 @keyframes border-light-scan {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* 3. Breathing Glow Pulse (More intense) */
 @keyframes pulse-glow {
-  0% { box-shadow: 0 4px 60px rgba(var(--mica-glow-color), 0.5), 0 0 150px rgba(var(--mica-glow-color), 0.15); }
-  50% { box-shadow: 0 8px 80px rgba(var(--mica-glow-color), 0.7), 0 0 200px rgba(var(--mica-glow-color), 0.25); }
-  100% { box-shadow: 0 4px 60px rgba(var(--mica-glow-color), 0.5), 0 0 150px rgba(var(--mica-glow-color), 0.15); }
+  0% { box-shadow: 0 5px 70px rgba(var(--mica-glow-color), 0.5), 0 0 160px rgba(var(--mica-glow-color), 0.2); }
+  50% { box-shadow: 0 10px 100px rgba(var(--mica-glow-color), 0.8), 0 0 250px rgba(var(--mica-glow-color), 0.35); }
+  100% { box-shadow: 0 5px 70px rgba(var(--mica-glow-color), 0.5), 0 0 160px rgba(var(--mica-glow-color), 0.2); }
 }
 
-/* --- MICA/FROSTED GLASS EFFECT ON MAIN CARD CONTAINER --- */
+/* --- MAIN CARD CONTAINER (Outer Shell) --- */
 .layer__59d0d .outer_c0bea0 {
-  position: relative; /* Needed for ::before pseudo-element positioning */
-  overflow: hidden; /* Crucial to contain the animated pseudo-element */
-  z-index: 1; /* Ensure card is above other elements if applicable */
+  position: relative;
+  overflow: hidden; 
+  z-index: 1;
 
   /* Frosted Glass Core */
   background-color: rgba(255, 255, 255, var(--mica-bg-opacity));
-  backdrop-filter: blur(var(--mica-blur)) saturate(180%); /* Increased saturation */
-  -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(180%);
+  backdrop-filter: blur(var(--mica-blur)) saturate(200%); /* Max saturation for crystal clear frost */
+  -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(200%);
   
-  /* Complex Multi-Layered Glow & Animation */
-  box-shadow: 
-    inset 0 0 20px rgba(255, 255, 255, 0.25), /* Stronger inner highlight */
-    inset 0 0 10px rgba(0, 0, 0, 0.3),     /* Deeper inner shadow */
-    0 4px 60px rgba(var(--mica-glow-color), 0.5), /* Primary external glow */
-    0 0 150px rgba(var(--mica-glow-color), 0.15); /* Wider ambient glow */
-  animation: pulse-glow 8s infinite ease-in-out; /* Subtle breathing glow */
+  /* Add Sheen Gradient to the background */
+  background-image: linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.15) 50%, /* The light streak */
+      rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%; 
+  
+  /* Combined Animation: Pulse + Sheen */
+  animation: pulse-glow 7s infinite ease-in-out, glass-sheen 10s linear infinite;
     
-  border: 1px solid var(--mica-border-color); /* More visible border */
-  border-radius: var(--card-border-radius); /* Consistent rounded corners */
-  
-  /* Smoother transitions on hover/focus */
+  /* Glow and Inner Shadow */
+  box-shadow: 
+    inset 0 0 25px rgba(255, 255, 255, 0.3), /* Stronger inner highlight */
+    inset 0 0 12px rgba(0, 0, 0, 0.4),     /* Deeper inner shadow */
+    0 5px 70px rgba(var(--mica-glow-color), 0.7), /* Primary external glow */
+    0 0 200px rgba(var(--mica-glow-color), 0.2); /* Wider ambient glow */
+    
+  border: 1px solid var(--mica-border-color); 
+  border-radius: var(--card-border-radius); 
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- Animated Intrusive Border Light (Pseudo-element) --- */
+/* --- ANIMATED INTRUSIVE BORDER LIGHT (Pseudo-element) --- */
 .layer__59d0d .outer_c0bea0::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 250%; /* Larger than the card to ensure full coverage on rotation */
-  height: 250%; /* Larger than the card */
+  width: 300%; /* Even larger for a sweeping effect */
+  height: 300%; 
   background: conic-gradient(
     transparent 0deg,
     transparent 180deg,
-    rgba(var(--intrusive-glow-color), 0.6) 200deg, /* Start of the light streak */
-    rgba(var(--intrusive-glow-color), 0.8) 220deg, /* Peak intensity */
-    rgba(var(--intrusive-glow-color), 0.6) 240deg, /* End of the light streak */
+    rgba(var(--intrusive-glow-color), 0.8) 200deg,
+    rgba(var(--intrusive-glow-color), 1) 220deg, /* Peak intensity */
+    rgba(var(--intrusive-glow-color), 0.8) 240deg,
     transparent 260deg,
     transparent 360deg
   );
-  filter: blur(25px); /* Soften the light */
-  opacity: 0.8; /* Make it noticeable */
-  z-index: -1; /* Place behind the card's content but within its overflow */
-  animation: border-light-scan 10s linear infinite; /* Continuous rotation */
-  pointer-events: none; /* Do not interfere with mouse events */
+  filter: blur(35px); /* Increased blur for a softer light trail */
+  opacity: 0.9; 
+  z-index: -1;
+  animation: border-light-scan 8s linear infinite; /* Faster scan */
+  pointer-events: none;
+}
+
+/* --- SUB CONTAINER LAYERING: Body Content Area --- */
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: relative;
+  /* Create an inner layer distinct from the main shell */
+  background-color: rgba(255, 255, 255, 0.08); 
+  border-radius: 16px; /* Nested curve */
+  margin: 10px 16px 16px 16px; /* Spacing from main card edges */
+  padding: 16px; 
+  backdrop-filter: blur(5px);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Hover Effect: Lift and intensify glow --- */
 .layer__59d0d .outer_c0bea0:hover {
-  transform: translateY(-8px) scale(1.01); /* More pronounced lift */
-  border-color: rgba(255, 255, 255, 0.6); /* Brighter border on hover */
+  transform: translateY(-10px) scale(1.02); /* More lift and scale */
+  border-color: rgba(255, 255, 255, 0.8);
   box-shadow: 
-    inset 0 0 25px rgba(255, 255, 255, 0.3),
-    inset 0 0 12px rgba(0, 0, 0, 0.4),
-    0 12px 80px rgba(var(--mica-glow-color), 0.8), /* Stronger primary glow */
-    0 0 250px rgba(var(--mica-glow-color), 0.3); /* Wider, more intrusive ambient glow */
+    inset 0 0 30px rgba(255, 255, 255, 0.4),
+    inset 0 0 15px rgba(0, 0, 0, 0.5),
+    0 15px 120px rgba(var(--mica-glow-color), 1), /* Maximum intrusive primary glow */
+    0 0 300px rgba(var(--mica-glow-color), 0.4); /* Maximum intrusive ambient glow */
 }
 .layer__59d0d .outer_c0bea0:hover::before {
-    animation-duration: 6s; /* Faster scan on hover */
-    opacity: 1; /* Brighter animated light */
+    animation-duration: 4s; /* Very fast scan on hover */
+    opacity: 1; 
+    filter: blur(40px); /* Maximize border light glow */
 }
 
-
-/* --- BADGES: Applying a lighter mica/glow look to the badge containers --- */
+/* --- BADGES: Custom styling with curves --- */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  border: 1px solid rgba(255, 255, 255, 0.45); /* Slightly more defined */
-  background: rgba(255, 255, 255, 0.1); /* Slightly less opaque to show more behind it */
-  backdrop-filter: blur(10px) saturate(150%); /* Slightly more blur/saturation */
+  border: 1px solid rgba(255, 255, 255, 0.5); 
+  background: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(12px) saturate(180%); 
   
-  box-shadow: 0 0 20px rgba(var(--mica-glow-color), 0.6); /* Stronger badge glow */
+  /* Use a strong curve/pill shape */
+  border-radius: 9999px; /* Pill shape */
+  padding: 4px 10px; /* Adjust padding for pill shape */
   
-  border-radius: 10px; /* Slightly more rounded */
-  transition: all 0.4s ease-out; /* Add transition for smoothness */
+  box-shadow: 0 0 25px rgba(var(--mica-glow-color), 0.7); 
+  transition: all 0.4s ease-out;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-    box-shadow: 0 0 30px rgba(var(--mica-glow-color), 0.8), 0 0 50px rgba(var(--intrusive-glow-color), 0.3); /* Even stronger glow on badge hover */
-    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(var(--mica-glow-color), 1), 0 0 60px rgba(var(--intrusive-glow-color), 0.4); 
+    transform: translateY(-3px) scale(1.05); /* Pronounced badge lift */
 }
 
-
 /* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (kept intact) --- */
+
+/* Header Layering - Giving the top mask area a slightly less transparent background */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
   min-height: 220px !important;
+  background-color: rgba(255, 255, 255, 0.05); /* Header distinct background */
+  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0; 
 }
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
   overflow: visible;
@@ -171,10 +207,6 @@
 .layer__59d0d .outer_c0bea0 .mask__44b0c circle,
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
   display: none;
-}
-.layer__59d0d .outer_c0bea0 .body__5be3e,
-.layer__59d0d .outer_c0bea0 .body_ce8328 {
-  position: static;
 }
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
