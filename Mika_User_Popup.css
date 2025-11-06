@@ -35,6 +35,7 @@
 
 
 /* --- MAIN PROFILE POPUP CONTAINER (FROSTED GLASS CORE) --- */
+/* This is the "normal container" the user referred to, with position: relative */
 .layer__59d0d .outer_c0bea0 {
   position: relative;
   overflow: hidden;
@@ -87,7 +88,6 @@
 
 
 /* --- LAYOUT RESTORATION (CUSTOM CENTERED STRUCTURE) --- */
-/* (This section implements the layout rules you provided) */
 
 /* Structural Header & Banner Fixes */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
@@ -120,7 +120,7 @@
   flex-direction: column;
 }
 
-/* AVATAR - CENTERED POSITION */
+/* AVATAR - CENTERED POSITION (Kept Centered) */
 .layer__59d0d .outer_c0bea0 .avatar__75742 {
   top: 15px !important; 
   left: calc(50% - 40px) !important; /* CENTERING RULE */
@@ -146,19 +146,19 @@
 }
 
 
-/* NAME, PRONOUNS, BADGES CONTAINER - ADJUSTED TO TOP LEFT */
+/* NAME, PRONOUNS, BADGES CONTAINER - PINNED TOP LEFT */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 30px; /* Aligned vertically to the upper half of the avatar */
-  left: 16px; /* ADJUSTED: Pin to the left side */
-  max-width: 120px; /* Prevent overlap with the centered avatar */
+  top: 16px; /* Adjusted: Pin near the top edge */
+  left: 16px; /* Adjusted: Pin to the left edge */
+  max-width: 150px; /* Restrict width to avoid PFP collision */
   
   display: flex; 
   flex-direction: column;
-  align-items: flex-start; /* Ensure content stacks to the left */
+  align-items: flex-start; 
   justify-content: flex-start;
-  text-align: left; /* Text aligns left */
-  z-index: 99; 
+  text-align: left;
+  z-index: 99; /* Highest Z-index to ensure visibility */
   padding: 0; 
 }
 
