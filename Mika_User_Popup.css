@@ -1,101 +1,30 @@
-/* --- CHILLAX MICA PROFILE THEME VARIABLES (Wider & Centered Layout) --- */
 :root {
-  --main-bg-opacity: 0.1; /* Base Transparency */
-  --blur-intensity: 30px; /* Frosted Glass Intensity */
-  --card-border-radius: 20px;
-  --card-width: 380px; /* WIDER CARD */
-  --header-height: 220px; /* Standard Discord Banner Area Height */
-  
-  /* Chill Colors: Soft Blue/Teal */
-  --chill-color-a: 100, 150, 255; /* Soft Blue (RGB) */
-  --chill-color-b: 150, 255, 200; /* Soft Teal (RGB) */
+  /* --- FROSTED GLASS VARIABLES --- */
+  --badges-background: rgba(0, 0, 0, 0.3); /* Dark, semi-transparent background for badge pills */
+  --glass-opacity: 0.15; /* Main card background transparency */
+  --blur-intensity: 15px; /* How much blur to apply to the glass */
+  --card-border-radius: 16px; /* Rounded corners for the main card */
 }
 
-/* --- COMPLEX ANIMATIONS (Chillax Features) --- */
-
-/* 1. Subtle Glass Sheen/Reflection (Slightly slower) */
-@keyframes glass-sheen {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* 2. Slow, Alternating Outer Glow Pulse (Blue/Teal Blend) */
-@keyframes outer-glow-pulse {
-  0% { box-shadow: 0 0 40px rgba(var(--chill-color-a), 0.3), 0 0 80px rgba(var(--chill-color-b), 0.15); }
-  50% { box-shadow: 0 0 50px rgba(var(--chill-color-b), 0.4), 0 0 100px rgba(var(--chill-color-a), 0.25); }
-  100% { box-shadow: 0 0 40px rgba(var(--chill-color-a), 0.3), 0 0 80px rgba(var(--chill-color-b), 0.15); }
-}
-
-/* 3. Holographic Grid Background Shift (COMPLEX FEATURE) */
-@keyframes holo-shift {
-    0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 0.15; }
-    50% { transform: translate(5%, 10%) rotate(5deg) scale(1.05); opacity: 0.25; }
-    100% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 0.15; }
-}
-
-
-/* --- MAIN PROFILE POPUP CONTAINER (FROSTED GLASS CORE) --- */
-/* This is the "normal container" the user referred to, with position: relative */
+/* --- MAIN CARD: APPLY FROSTED GLASS EFFECT --- */
 .layer__59d0d .outer_c0bea0 {
+  /* Set the main container as the backdrop for the glass effect */
   position: relative;
   overflow: hidden;
   z-index: 10;
   
-  min-height: 380px; 
-  width: var(--card-width); /* WIDER */
-  margin: 20px auto;
-
-  /* Frosted Glass Core */
-  background-color: rgba(255, 255, 255, var(--main-bg-opacity));
-  backdrop-filter: blur(var(--blur-intensity)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--blur-intensity)) saturate(180%);
-  
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--card-border-radius); 
-
-  /* Inner shadow, sheen, and external chill glow */
-  box-shadow: 
-    inset 0 0 20px rgba(255, 255, 255, 0.25), 
-    inset 0 0 8px rgba(0, 0, 0, 0.4);
-
-  /* Animation: Sheen and Outer Glow Pulse */
-  animation: glass-sheen 12s linear infinite, outer-glow-pulse 8s ease-in-out infinite alternate; 
-  transition: all 0.5s ease-in-out;
+  /* Apply the Glass Look */
+  background-color: rgba(255, 255, 255, var(--glass-opacity));
+  backdrop-filter: blur(var(--blur-intensity)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur-intensity)) saturate(150%);
+  border-radius: var(--card-border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* COMPLEX FEATURE 1: Internal Holographic Grid (Subtle shifting pattern) */
-.layer__59d0d .outer_c0bea0::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1;
-    /* Creating a subtle grid pattern */
-    background: 
-      repeating-linear-gradient(0deg, rgba(var(--chill-color-a), 0.1), rgba(var(--chill-color-a), 0.1) 2px, transparent 2px, transparent 20px), 
-      repeating-linear-gradient(90deg, rgba(var(--chill-color-b), 0.1), rgba(var(--chill-color-b), 0.1) 2px, transparent 2px, transparent 20px);
-    background-size: 100% 100%;
-    border-radius: var(--card-border-radius);
-    /* Animation: Slow, slight movement and fade */
-    animation: holo-shift 18s ease-in-out infinite alternate;
-    filter: blur(1px);
-}
-
-/* Hover Effect: Lift and intensify depth */
-.layer__59d0d .outer_c0bea0:hover {
-  transform: translateY(-8px) scale(1.01);
-  border-color: rgba(255, 255, 255, 0.7);
-}
-
-
-/* --- LAYOUT RESTORATION (CUSTOM CENTERED STRUCTURE) --- */
-
-/* Structural Header & Banner Fixes */
+/* --- EXISTING LAYOUT RULES (Retained) --- */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
-  min-height: var(--header-height) !important; 
-  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
-  background: transparent;
-  padding-top: 0;
-  position: relative;
+  min-height: 220px !important;
 }
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
   overflow: visible;
@@ -112,116 +41,9 @@
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
   mask: none;
 }
-.layer__59d0d .outer_c0bea0 .mask__44b0c circle,
-.layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
-  display: none;
-}
 .layer__59d0d .outer_c0bea0 .wrapper__4106a {
   flex-direction: column;
 }
-
-/* AVATAR - CENTERED POSITION (Kept Centered) */
-.layer__59d0d .outer_c0bea0 .avatar__75742 {
-  top: 15px !important; 
-  left: calc(50% - 40px) !important; /* CENTERING RULE */
-  position: absolute !important;
-  margin-bottom: 0;
-  z-index: 3;
-  
-  /* Soft, chill accent border pulse */
-  animation: avatar-halo-pulse 6s ease-in-out infinite alternate; 
-  border-radius: 50%;
-}
-@keyframes avatar-halo-pulse {
-  0% { box-shadow: 0 0 0 4px rgba(var(--chill-color-a), 0.4); } 
-  50% { box-shadow: 0 0 0 6px rgba(var(--chill-color-b), 0.6); } 
-  100% { box-shadow: 0 0 0 4px rgba(var(--chill-color-a), 0.4); }
-}
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab {
-  top: 0;
-  left: 0;
-}
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab foreignObject {
-  mask: none !important;
-}
-
-
-/* NAME, PRONOUNS, BADGES CONTAINER - PINNED TOP LEFT */
-.layer__59d0d .outer_c0bea0 .container__63ed3 {
-  position: absolute;
-  top: 16px; /* Adjusted: Pin near the top edge */
-  left: 16px; /* Adjusted: Pin to the left edge */
-  max-width: 150px; /* Restrict width to avoid PFP collision */
-  
-  display: flex; 
-  flex-direction: column;
-  align-items: flex-start; 
-  justify-content: flex-start;
-  text-align: left;
-  z-index: 99; /* Highest Z-index to ensure visibility */
-  padding: 0; 
-}
-
-/* Adjustments for Username/Tags (Left alignment) */
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-  gap: 2px;
-  margin-bottom: 5px;
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  color: white;
-  font-size: 1.4em;
-  font-weight: 700;
-  text-shadow: 0px 0px 8px rgba(var(--chill-color-a), 0.5); 
-  width: 100%;
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
-  display: block;
-  text-align: left; /* Text aligns left */
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
-  display: none;
-}
-
-/* Custom Badges Styling (Frosted Pill Shape - Keeping the chillax aesthetic) */
-.layer__59d0d .outer_c0bea0 .tags__63ed3 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* Align badges to the left */
-  gap: 6px;
-  margin-top: 5px;
-  flex-direction: row;
-}
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  border: 1px solid rgba(255, 255, 255, 0.4); 
-  background: rgba(255, 255, 255, 0.05); 
-  backdrop-filter: blur(10px) saturate(150%); 
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
-  border-radius: 9999px;
-  padding: 3px 10px;
-  color: white;
-  font-size: 0.75em;
-  font-weight: 600;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease;
-}
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-  transform: translateY(-2px) scale(1.05); 
-}
-/* Badge Ordering (from the layout you provided) */
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3 {
-  order: -2;
-}
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
-  order: -3;
-}
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
-  order: -1;
-}
-
-/* Other Structural Layout Rules from your paste */
 .layer__59d0d .outer_c0bea0 .container_ab8609 {
   top: unset;
   right: unset;
@@ -253,28 +75,77 @@
 .layer__59d0d .outer_c0bea0 .outer_ab8609::before, .layer__59d0d .outer_c0bea0 .outer_ab8609::after {
   display: none;
 }
+.layer__59d0d .outer_c0bea0 .avatar__75742 {
+  top: 15px !important;
+  left: calc(50% - 40px) !important;
+}
+.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab {
+  top: 0;
+  left: 0;
+}
+.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab foreignObject {
+  mask: none !important;
+}
+.layer__59d0d .outer_c0bea0 .mask__44b0c circle,
+.layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
+  display: none;
+}
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   position: static;
+  /* Ensure the body content is visually separated */
+  background-color: var(--background-secondary-alt);
+}
+.layer__59d0d .outer_c0bea0 .container__63ed3 {
+  position: absolute;
+  top: 105px;
+  left: 0;
+  right: unset;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
+  width: 100%;
+  /* Improve visibility of name against banner */
+  color: white; 
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
+  display: block;
+  text-align: center;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
+  display: none;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
+  gap: 0;
+  flex-direction: column;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 {
+  margin-top: 2.5px;
+  justify-content: center;
+  flex-direction: row;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3 {
+  order: -2;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
+  order: -3;
 }
 
-/* COMPLEX FEATURE 2: Body Content as a lifted, separate frosted panel (Retained chillax feature) */
-.layer__59d0d .outer_c0bea0 .body__5be3e,
-.layer__59d0d .outer_c0bea0 .body_ce8328 {
-  position: relative;
-  /* Darker nested background for contrast and depth */
-  background-color: rgba(0, 0, 0, 0.15); 
-  border-radius: 16px; /* Rounded corners for the nested body */
-  /* Margin reduced to create a "floating" effect inside the main card */
-  margin: 10px 16px 16px 16px; 
-  padding: 16px; 
-  backdrop-filter: blur(10px);
-  /* Lifted shadow to make it pop out */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 5px rgba(var(--chill-color-b), 0.2); 
-  color: white;
-  transition: all 0.4s ease-out;
+/* --- BADGES: FROSTED PILL STYLING --- */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
+  border: none;
+  background: var(--badges-background); /* Uses the new semi-transparent color */
+  border-radius: 8px;
+  padding: 4px 6px; /* Give a bit more breathing room */
+  
+  /* Apply a slight blur for the frosted effect on the badge pill */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-.layer__59d0d .outer_c0bea0 .body__5be3e:hover,
-.layer__59d0d .outer_c0bea0 .body_ce8328:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(var(--chill-color-a), 0.4);
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
+  order: -1;
 }
