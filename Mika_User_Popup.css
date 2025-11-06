@@ -149,7 +149,7 @@
 /* NAME, PRONOUNS, BADGES CONTAINER - CENTERED & MOVED UP */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 95px; /* ADJUSTED: Moved up from 105px to 95px to sit right below the 80px diameter avatar */
+  top: 110px; /* ADJUSTED: Increased from 100px to 110px for better clearance */
   left: 0;
   right: unset;
   bottom: unset;
@@ -159,7 +159,7 @@
   align-items: center; /* CENTERING RULE */
   justify-content: center; /* CENTERING RULE */
   text-align: center; /* CENTERING RULE */
-  z-index: 2;
+  z-index: 4; /* ADJUSTED: Increased from 2 to 4 to float above all other header elements */
   padding: 0 16px; 
 }
 
