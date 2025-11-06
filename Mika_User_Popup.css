@@ -1,0 +1,164 @@
+:root {
+  --badges-background: #00000000;
+  /* --- NEW MICA & GLOW VARIABLES --- */
+  --mica-blur: 25px; /* Increase for more frost */
+  --mica-bg-opacity: 0.15; /* Base transparency */
+  --mica-glow-color: 150, 200, 255; /* A vibrant blue/purple glow (R, G, B) */
+  --mica-border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* --- MICA/FROSTED GLASS EFFECT ON MAIN CARD CONTAINER --- */
+.layer__59d0d .outer_c0bea0 {
+  /* Frosted Glass Core */
+  background-color: rgba(255, 255, 255, var(--mica-bg-opacity));
+  backdrop-filter: blur(var(--mica-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--mica-blur)) saturate(150%);
+  
+  /* Complex Multi-Layered Glow */
+  box-shadow: 
+    /* Layer 1: Strong, defined primary glow */
+    0 4px 60px rgba(var(--mica-glow-color), 0.5), 
+    /* Layer 2: Wider, softer ambient light for luminosity */
+    0 0 150px rgba(var(--mica-glow-color), 0.15), 
+    /* Layer 3: Inner top highlight for a wet/sheen look */
+    inset 0 0 10px rgba(255, 255, 255, 0.2),
+    /* Layer 4: Subtle depth from inner shadow */
+    inset 0 0 5px rgba(0, 0, 0, 0.25);
+    
+  border: 1px solid var(--mica-border-color); /* Light defined edge */
+  border-radius: 16px; /* Ensure rounded corners for the style */
+  
+  /* Transition for smoother changes if Discord applies hover/active states */
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- BADGES: Applying a lighter mica/glow look to the badge containers --- */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
+  /* Overrides existing 'border: none' and 'background: transparent' */
+  border: 1px solid rgba(255, 255, 255, 0.4); 
+  background: rgba(255, 255, 255, 0.15); /* Slightly less opaque than the main card */
+  backdrop-filter: blur(8px); /* Less blur for smaller elements */
+  
+  /* Subtle badge glow */
+  box-shadow: 0 0 15px rgba(var(--mica-glow-color), 0.5);
+  
+  border-radius: 8px;
+}
+
+/* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (kept intact) --- */
+.layer__59d0d .outer_c0bea0 .header__5be3e {
+  min-height: 220px !important;
+}
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
+  overflow: visible;
+  min-height: unset !important;
+  contain: unset;
+}
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb .banner__68edb {
+  position: absolute;
+  height: 200px !important;
+  -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.7607843137), rgba(0, 0, 0, 0.7607843137));
+  mask-image: linear-gradient(rgba(0, 0, 0, 0.7607843137), rgba(0, 0, 0, 0.7607843137));
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), 50% 100%, 0 calc(100% - 25px));
+}
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
+  mask: none;
+}
+.layer__59d0d .outer_c0bea0 .wrapper__4106a {
+  flex-direction: column;
+}
+.layer__59d0d .outer_c0bea0 .container_ab8609 {
+  top: unset;
+  right: unset;
+  bottom: -4px;
+  left: 16px;
+  z-index: 2;
+  border-radius: 0;
+}
+.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  min-width: unset;
+  max-width: unset;
+  border-radius: 0;
+}
+.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609::before, .layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609::after {
+  display: none;
+}
+.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 > .inner_ab8609 {
+  padding: 0;
+  background: transparent;
+}
+.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 > .inner_ab8609 > .content_ab8609 .text-sm\/normal_cf4812 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 270px;
+}
+.layer__59d0d .outer_c0bea0 .outer_ab8609::before, .layer__59d0d .outer_c0bea0 .outer_ab8609::after {
+  display: none;
+}
+.layer__59d0d .outer_c0bea0 .avatar__75742 {
+  top: 15px !important;
+  left: calc(50% - 40px) !important;
+}
+.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab {
+  top: 0;
+  left: 0;
+}
+.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab foreignObject {
+  mask: none !important;
+}
+.layer__59d0d .outer_c0bea0 .mask__44b0c circle,
+.layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
+  display: none;
+}
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: static;
+}
+.layer__59d0d .outer_c0bea0 .container__63ed3 {
+  position: absolute;
+  top: 105px;
+  left: 0;
+  right: unset;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
+  width: 100%;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
+  display: block;
+  text-align: center;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
+  display: none;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
+  gap: 0;
+  flex-direction: column;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 {
+  margin-top: 2.5px;
+  justify-content: center;
+  flex-direction: row;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3 {
+  order: -2;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
+  order: -3;
+}
+/* Removed old badge styling to allow the new one above to take effect: 
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
+  border: none;
+  background: var(--badges-background);
+  border-radius: 8px;
+}
+*/
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
+  order: -1;
+}
