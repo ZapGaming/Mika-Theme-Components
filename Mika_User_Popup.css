@@ -1,182 +1,168 @@
-/* --- BLUE ARCHIVE MIKA THEME VARIABLES (Compact & Zen) --- */
+/* --- CHILLAX MICA PROFILE THEME VARIABLES (Wider & Restored Layout) --- */
 :root {
-  --mika-main-bg: rgba(255, 255, 255, 0.08); /* Lighter base */
-  --mika-accent-color: #87CEEB; /* Sky Blue */
-  --mika-secondary-accent: #FFC0CB; /* Soft Pink */
-  --mika-text-color: #FFFFFF;
-  --mika-blur: 35px; /* Softer, dreamier blur for zen */
-  --card-border-radius: 30px;
-  --halo-size: 6px;
-  --header-height: 140px; /* REDUCED: Compact vertical space */
+  --main-bg-opacity: 0.1; /* Base Transparency */
+  --blur-intensity: 30px; /* Frosted Glass Intensity */
+  --card-border-radius: 20px;
+  --card-width: 380px; /* WIDER CARD */
+  --header-height: 220px; /* Standard Discord Banner Area Height */
+  
+  /* Chill Colors: Soft Blue/Teal */
+  --chill-color-a: 100, 150, 255; /* Soft Blue (RGB) */
+  --chill-color-b: 150, 255, 200; /* Soft Teal (RGB) */
 }
 
-/* --- ANIMATIONS --- */
+/* --- COMPLEX ANIMATIONS (Chillax Features) --- */
 
-/* 1. Glass Sheen/Reflection for Mica Effect */
+/* 1. Subtle Glass Sheen/Reflection (Slightly slower) */
 @keyframes glass-sheen {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-/* 2. Soft Outer Halo Pulse (SLOWER & SOFTER) */
-@keyframes halo-pulse {
-  0% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.1), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.05); } 
-  50% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.25), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.15); } 
-  100% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.1), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.05); }
+/* 2. Slow, Alternating Outer Glow Pulse (Blue/Teal Blend) */
+@keyframes outer-glow-pulse {
+  0% { box-shadow: 0 0 40px rgba(var(--chill-color-a), 0.3), 0 0 80px rgba(var(--chill-color-b), 0.15); }
+  50% { box-shadow: 0 0 50px rgba(var(--chill-color-b), 0.4), 0 0 100px rgba(var(--chill-color-a), 0.25); }
+  100% { box-shadow: 0 0 40px rgba(var(--chill-color-a), 0.3), 0 0 80px rgba(var(--chill-color-b), 0.15); }
 }
 
-/* 3. Animated Border (SLOWER rotation for Zen) */
-@keyframes rotate-border {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 300% 300%; }
+/* 3. Holographic Grid Background Shift (COMPLEX FEATURE) */
+@keyframes holo-shift {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 0.15; }
+    50% { transform: translate(5%, 10%) rotate(5deg) scale(1.05); opacity: 0.25; }
+    100% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 0.15; }
 }
 
-/* 4. Avatar Inner Halo Pulse (SLOWER & SOFTER) */
-@keyframes avatar-halo-pulse {
-  0% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 0 10px 3px var(--mika-accent-color); } 
-  50% { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5), 0 0 15px 5px var(--mika-secondary-accent); } 
-  100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 0 10px 3px var(--mika-accent-color); }
-}
 
-/* --- MAIN PROFILE POPUP CONTAINER (The "Halo" container) --- */
+/* --- MAIN PROFILE POPUP CONTAINER --- */
 .layer__59d0d .outer_c0bea0 {
   position: relative;
   overflow: hidden;
   z-index: 10;
   
-  min-height: 320px; /* REDUCED: Smaller total card height */
-  width: 270px; /* REDUCED: Slimmer card width */
+  min-height: 380px; 
+  width: var(--card-width); /* WIDER */
   margin: 20px auto;
 
-  /* Mika Frosted Glass Base */
-  background-color: var(--mika-main-bg);
-  backdrop-filter: blur(var(--mika-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--mika-blur)) saturate(180%);
+  /* Frosted Glass Core */
+  background-color: rgba(255, 255, 255, var(--main-bg-opacity));
+  backdrop-filter: blur(var(--blur-intensity)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-intensity)) saturate(180%);
   
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--card-border-radius); 
 
-  /* Inner shadow and sheen */
+  /* Inner shadow, sheen, and external chill glow */
   box-shadow: 
-    inset 0 0 15px rgba(255, 255, 255, 0.2), 
-    inset 0 0 8px rgba(0, 0, 0, 0.3);
+    inset 0 0 20px rgba(255, 255, 255, 0.25), 
+    inset 0 0 8px rgba(0, 0, 0, 0.4);
 
-  background-image: linear-gradient(
-      105deg,
-      rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.25) 50%,
-      rgba(255, 255, 255, 0) 70%
-  );
-  background-size: 200% 100%; 
-  animation: glass-sheen 8s linear infinite, halo-pulse 7s ease-in-out infinite alternate; 
-
+  /* Animation: Sheen and Outer Glow Pulse */
+  animation: glass-sheen 12s linear infinite, outer-glow-pulse 8s ease-in-out infinite alternate; 
   transition: all 0.5s ease-in-out;
 }
 
-/* Animated Outer Border */
+/* COMPLEX FEATURE 1: Internal Holographic Grid (Subtle shifting pattern) */
 .layer__59d0d .outer_c0bea0::before {
     content: '';
     position: absolute;
-    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    top: 0; left: 0; right: 0; bottom: 0;
     z-index: -1;
-    background: linear-gradient(
-        45deg, 
-        var(--mika-accent-color) 0%, 
-        var(--mika-secondary-accent) 50%, 
-        var(--mika-accent-color) 100%
-    );
-    background-size: 300% 300%;
+    /* Creating a subtle grid pattern */
+    background: 
+      repeating-linear-gradient(0deg, rgba(var(--chill-color-a), 0.1), rgba(var(--chill-color-a), 0.1) 2px, transparent 2px, transparent 20px), 
+      repeating-linear-gradient(90deg, rgba(var(--chill-color-b), 0.1), rgba(var(--chill-color-b), 0.1) 2px, transparent 2px, transparent 20px);
+    background-size: 100% 100%;
     border-radius: var(--card-border-radius);
-    filter: blur(8px);
-    animation: rotate-border 15s linear infinite; 
+    /* Animation: Slow, slight movement and fade */
+    animation: holo-shift 18s ease-in-out infinite alternate;
+    filter: blur(1px);
 }
 
 /* Hover Effect: Lift and intensify depth */
 .layer__59d0d .outer_c0bea0:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-8px) scale(1.01);
   border-color: rgba(255, 255, 255, 0.7);
 }
 
 
-/* --- CUSTOM LAYOUT WITHIN THE MIKA CARD --- */
+/* --- LAYOUT RESTORATION (Standard Discord Structure) --- */
 
 /* Header Area (Defines the space for PFP, Name, Badges) */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
-  min-height: var(--header-height) !important; /* FIXED HEIGHT (140px) */
+  min-height: var(--header-height) !important; /* Standard Height (220px) */
   border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
   background: transparent;
   padding-top: 0;
   position: relative;
 }
 
-/* Hide Discord Banner */
-.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb .banner__68edb {
-  display: none;
-}
-.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
-  overflow: visible;
-  min-height: unset !important;
-  contain: unset;
-}
+/* Hide the default black mask for the Avatar */
 .layer__59d0d .outer_c0bea0 .mask__44b0c circle,
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
   display: none;
 }
 
-/* AVATAR - Fixed Absolute Position & Inner Halo Effect (ADJUSTED POSITION) */
+/* AVATAR - Standard Discord Position (Top-Left of the main content area) */
 .layer__59d0d .outer_c0bea0 .avatar__75742 {
-  top: 30px !important; /* RE-CENTERED: (140px header - 80px pfp) / 2 = 30px */
-  left: calc(50% - 40px) !important; 
+  top: 15px !important; /* Default Discord offset */
+  left: 16px !important; /* Default Discord offset */
   position: absolute !important;
   margin-bottom: 0;
   z-index: 3;
   
-  /* Inner Avatar Halo Effect (SLOWER ANIMATION) */
+  /* Soft, chill accent border pulse */
   animation: avatar-halo-pulse 6s ease-in-out infinite alternate; 
   border-radius: 50%;
 }
+@keyframes avatar-halo-pulse {
+  0% { box-shadow: 0 0 0 4px rgba(var(--chill-color-a), 0.4); } 
+  50% { box-shadow: 0 0 0 6px rgba(var(--chill-color-b), 0.6); } 
+  100% { box-shadow: 0 0 0 4px rgba(var(--chill-color-a), 0.4); }
+}
 
-/* NAME, PRONOUNS, BADGES CONTAINER - Fixed Absolute Position (ADJUSTED POSITION) */
+
+/* NAME, PRONOUNS, BADGES CONTAINER - Standard Discord Position (Below Banner/Avatar) */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 120px; /* RE-CENTERED: 30px (avatar start) + 80px (avatar size) + 10px (spacing) = 120px */
+  top: 105px; /* Default Discord position relative to banner */
   left: 0;
   right: unset;
   bottom: unset;
   width: 100%;
   display: flex; 
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: flex-start; /* Align to the left/start */
+  justify-content: flex-start;
+  text-align: left;
   z-index: 2;
-  padding-bottom: 10px;
+  padding: 0 16px; /* Add padding for margin */
 }
 
-/* Adjustments for Username, Pronouns, Badges within their container */
+/* Adjustments for Username/Tags (Left alignment) */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 2px;
   margin-bottom: 5px;
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  color: var(--mika-text-color);
+  color: white;
   font-size: 1.4em;
   font-weight: 700;
-  text-shadow: 0px 0px 6px rgba(135, 206, 235, 0.6); 
+  text-shadow: 0px 0px 8px rgba(var(--chill-color-a), 0.5); 
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
   display: block;
-  text-align: center;
+  text-align: left;
 }
 
-/* Custom Badges Styling (Pill Shape with soft Mica look) */
+/* Custom Badges Styling (Frosted Pill Shape) */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* Align to the left/start */
   gap: 6px;
   margin-top: 5px;
 }
@@ -187,24 +173,48 @@
   -webkit-backdrop-filter: blur(10px) saturate(150%);
   border-radius: 9999px;
   padding: 3px 10px;
-  color: var(--mika-text-color);
+  color: white;
   font-size: 0.75em;
   font-weight: 600;
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-  transform: translateY(-1px) scale(1.03); 
+  transform: translateY(-2px) scale(1.05); 
 }
 
-/* SUB CONTAINER LAYERING: Body Content Area */
+
+/* COMPLEX FEATURE 2: Body Content as a lifted, separate frosted panel */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.05); 
-  border-radius: 0 0 25px 25px;
-  margin: 0 16px 16px 16px; 
+  /* Darker nested background for contrast and depth */
+  background-color: rgba(0, 0, 0, 0.15); 
+  border-radius: 16px; /* Rounded corners for the nested body */
+  /* Margin reduced to create a "floating" effect inside the main card */
+  margin: 10px 16px 16px 16px; 
   padding: 16px; 
-  backdrop-filter: blur(8px);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2); 
-  color: var(--mika-text-color);
+  backdrop-filter: blur(10px);
+  /* Lifted shadow to make it pop out */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 5px rgba(var(--chill-color-b), 0.2); 
+  color: white;
+  transition: all 0.4s ease-out;
+}
+.layer__59d0d .outer_c0bea0 .body__5be3e:hover,
+.layer__59d0d .outer_c0bea0 .body_ce8328:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(var(--chill-color-a), 0.4);
+}
+
+/* Ensure the main content uses standard flow */
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: static;
+}
+/* Ensure the discord header mask (banner) uses the correct size */
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb .banner__68edb {
+  height: 200px !important;
+}
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
+  min-height: unset !important;
+  contain: unset;
 }
