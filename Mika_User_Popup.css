@@ -146,28 +146,28 @@
 }
 
 
-/* NAME, PRONOUNS, BADGES CONTAINER - CENTERED & MOVED UP */
+/* NAME, PRONOUNS, BADGES CONTAINER - POSITIONED RIGHT OF AVATAR */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 110px; /* ADJUSTED: Increased from 100px to 110px for better clearance */
-  left: 0;
-  right: unset;
-  bottom: unset;
-  width: 100%;
-  display: flex; 
+  top: 30px; /* ALIGNED: Vertically positioned near the top of the PFP (PFP starts at 15px) */
+  left: calc(50% + 50px); /* OFFSET: PFP center + 40px (radius) + 10px (spacing) */
+  right: 16px; /* BOUNDARY: Keep space from the right edge */
+  width: unset; /* Allow width to be defined by left/right */
+  
+  display: flex; /* Keep flex for stacking Name/Tags vertically */
   flex-direction: column;
-  align-items: center; /* CENTERING RULE */
-  justify-content: center; /* CENTERING RULE */
-  text-align: center; /* CENTERING RULE */
-  z-index: 4; /* ADJUSTED: Increased from 2 to 4 to float above all other header elements */
-  padding: 0 16px; 
+  align-items: flex-start; /* ADJUSTED: Align content to the left */
+  justify-content: flex-start;
+  text-align: left; /* ADJUSTED: Text aligns left */
+  z-index: 99; /* ADJUSTED: Highest Z-index to prevent any overlap */
+  padding: 0; 
 }
 
-/* Adjustments for Username/Tags (Centered alignment) */
+/* Adjustments for Username/Tags (Left alignment) */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
   display: flex;
   flex-direction: column;
-  align-items: center; /* CENTERING RULE */
+  align-items: flex-start; /* ADJUSTED: Align items to the left */
   gap: 2px;
   margin-bottom: 5px;
 }
@@ -180,7 +180,7 @@
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
   display: block;
-  text-align: center; /* CENTERING RULE */
+  text-align: left; /* ADJUSTED: Text aligns left */
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
   display: none;
@@ -190,7 +190,7 @@
 .layer__59d0d .outer_c0bea0 .tags__63ed3 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* CENTERING RULE */
+  justify-content: flex-start; /* ADJUSTED: Align badges to the left */
   gap: 6px;
   margin-top: 5px;
   flex-direction: row;
