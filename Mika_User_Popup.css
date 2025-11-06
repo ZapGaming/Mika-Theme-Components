@@ -48,9 +48,8 @@
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- ANIMATED BORDER LIGHT (REMOVED: Was in ::before) --- */
+/* --- ANIMATED BORDER LIGHT (REMOVED) --- */
 .layer__59d0d .outer_c0bea0::before {
-  /* This element is now empty to ensure no intrusive lighting appears */
   content: none;
 }
 
@@ -96,17 +95,56 @@
   transition: all 0.4s ease-out;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-    /* REMOVED GLOW on hover */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Simple dark shadow for depth */
+    /* REMOVED GLOW on hover, using simple dark shadow for depth */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
     transform: translateY(-2px) scale(1.06); 
 }
 
-/* --- LAYOUT FIXES: Keep Discord's default positioning for elements inside the card --- */
+/* ------------------------------------------------------------------- */
+/* --- CUSTOM LAYOUT RULES (RESTORED CENTERING/POSITIONING) --- */
+/* ------------------------------------------------------------------- */
 
-/* Header Layering - Essential for the card's top shape */
+/* Custom Avatar Positioning (Centered) */
+.layer__59d0d .outer_c0bea0 .avatar__75742 {
+  top: 15px !important;
+  left: calc(50% - 40px) !important; /* Center horizontally */
+}
+
+/* Custom Container Positioning (Name, Pronouns, Badges) - Centered Below Avatar */
+.layer__59d0d .outer_c0bea0 .container__63ed3 {
+  position: absolute;
+  top: 105px; /* Vertical position adjustment */
+  left: 0;
+  right: unset;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+/* Centering Username */
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
+  width: 100%;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
+  display: block;
+  text-align: center;
+}
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
+  gap: 0;
+  flex-direction: column; /* Stack elements vertically for centering */
+}
+/* Centering Tags/Badges */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 {
+  margin-top: 2.5px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+/* Retaining essential Discord Header Structure/Masking */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
   min-height: 220px !important;
-  background-color: rgba(255, 255, 255, 0.05); /* Header distinct background */
+  background-color: rgba(255, 255, 255, 0.05); 
   border-radius: var(--card-border-radius) var(--card-border-radius) 0 0; 
 }
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
@@ -124,17 +162,24 @@
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
   mask: none;
 }
-/* Ensure the avatar is back in its default position (remove centering) */
-.layer__59d0d .outer_c0bea0 .avatar__75742 {
-  top: unset !important; /* Revert */
-  left: unset !important; /* Revert */
-}
-/* Revert specific style masks that break the visuals */
 .layer__59d0d .outer_c0bea0 .mask__44b0c circle,
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
   display: none;
 }
-/* Hide the nickname edit icon which can be misplaced */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .nicknameIcons__63ed3 {
   display: none; 
+}
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: static;
+}
+/* Badge Ordering (to ensure proper centered flow) */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3 {
+  order: -2;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
+  order: -3;
+}
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
+  order: -1;
 }
