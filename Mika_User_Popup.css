@@ -1,13 +1,13 @@
-/* --- BLUE ARCHIVE MIKA THEME VARIABLES --- */
+/* --- BLUE ARCHIVE MIKA THEME VARIABLES (Refined) --- */
 :root {
-  --mika-main-bg: rgba(255, 255, 255, 0.1); /* Very light, almost transparent */
-  --mika-accent-color: #87CEEB; /* Sky Blue for highlights/halo */
+  --mika-main-bg: rgba(255, 255, 255, 0.08); /* Lighter base */
+  --mika-accent-color: #87CEEB; /* Sky Blue */
   --mika-secondary-accent: #FFC0CB; /* Soft Pink */
   --mika-text-color: #FFFFFF;
-  --mika-blur: 35px; /* Softer blur */
-  --card-border-radius: 35px; /* More rounded, almost pill-like corners */
-  --halo-glow-color: rgba(135, 206, 235, 0.6); /* Soft blue halo glow */
-  --halo-size: 8px; /* Thickness of the halo effect */
+  --mika-blur: 30px; /* Medium blur */
+  --card-border-radius: 30px; /* Slightly smaller curves */
+  --halo-size: 6px; /* Smaller, focused outer halo */
+  --header-height: 160px; /* Fixed height for precise layout calculation */
 }
 
 /* --- ANIMATIONS --- */
@@ -18,169 +18,166 @@
   100% { background-position: 200% 0; }
 }
 
-/* 2. Soft Halo Pulse */
+/* 2. Soft Outer Halo Pulse (The full card glow) */
 @keyframes halo-pulse {
-  0% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.2), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
-  50% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.4), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.2); }
-  100% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.2), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
+  0% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.15), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
+  50% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.3), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.2); }
+  100% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.15), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
+}
+
+/* 3. Animated Border (More Effects) */
+@keyframes rotate-border {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 300%; }
+}
+
+/* 4. Avatar Inner Halo Pulse (Blue Archive pfp highlight) */
+@keyframes avatar-halo-pulse {
+  0% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 10px 3px var(--mika-accent-color); }
+  50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.6), 0 0 20px 6px var(--mika-secondary-accent); }
+  100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 10px 3px var(--mika-accent-color); }
 }
 
 /* --- MAIN PROFILE POPUP CONTAINER (The "Halo" container) --- */
 .layer__59d0d .outer_c0bea0 {
   position: relative;
   overflow: hidden;
-  z-index: 10; /* Ensure it's on top */
+  z-index: 10;
   
-  min-height: 400px; /* Give it some vertical space */
-  width: 320px; /* Fixed width for profile card feel */
-  margin: 20px auto; /* Center the card */
+  min-height: 360px; /* Made smaller */
+  width: 300px; /* Made smaller */
+  margin: 20px auto;
 
   /* Mika Frosted Glass Base */
   background-color: var(--mika-main-bg);
   backdrop-filter: blur(var(--mika-blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--mika-blur)) saturate(180%);
   
-  border: 1px solid rgba(255, 255, 255, 0.4); /* Soft white border */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--card-border-radius); 
 
-  /* Inner shadow for depth, no external glow for the main card itself */
+  /* Inner shadow and sheen */
   box-shadow: 
-    inset 0 0 20px rgba(255, 255, 255, 0.3), /* Inner highlight */
-    inset 0 0 10px rgba(0, 0, 0, 0.3);      /* Inner shadow */
+    inset 0 0 15px rgba(255, 255, 255, 0.2), 
+    inset 0 0 8px rgba(0, 0, 0, 0.3);
 
-  /* Glass Sheen Animation */
   background-image: linear-gradient(
       105deg,
       rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.3) 50%, /* Stronger sheen */
+      rgba(255, 255, 255, 0.25) 50%,
       rgba(255, 255, 255, 0) 70%
   );
   background-size: 200% 100%; 
-  animation: glass-sheen 8s linear infinite; /* Faster sheen */
-
-  /* The Halo Effect - This uses box-shadow for a soft, encompassing glow */
-  animation: halo-pulse 5s ease-in-out infinite alternate;
+  animation: glass-sheen 8s linear infinite, halo-pulse 5s ease-in-out infinite alternate;
 
   transition: all 0.5s ease-in-out;
 }
 
+/* Animated Outer Border (More Effects) */
+.layer__59d0d .outer_c0bea0::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    z-index: -1;
+    background: linear-gradient(
+        45deg, 
+        var(--mika-accent-color) 0%, 
+        var(--mika-secondary-accent) 50%, 
+        var(--mika-accent-color) 100%
+    );
+    background-size: 300% 300%;
+    border-radius: var(--card-border-radius);
+    filter: blur(8px);
+    animation: rotate-border 10s linear infinite;
+}
+
 /* Hover Effect: Lift and intensify depth */
 .layer__59d0d .outer_c0bea0:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 
-    inset 0 0 25px rgba(255, 255, 255, 0.4),
-    inset 0 0 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.7);
 }
+
 
 /* --- CUSTOM LAYOUT WITHIN THE MIKA CARD --- */
 
-/* Reset Discord's header min-height and banner clip-path to fit our design */
+/* Header Area (Defines the space for PFP, Name, Badges) */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
-  min-height: 100px !important; /* Smaller header area */
+  min-height: var(--header-height) !important; /* Fixed height for calculation */
   border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
-  background: transparent; /* Let the main card background show through */
-  padding-top: 20px; /* Space from top edge */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: flex-start; /* Align avatar towards top */
-  position: relative; /* For avatar positioning */
+  background: transparent;
+  padding-top: 0;
+  position: relative; /* Must be relative for absolute children positioning */
 }
 
-/* Hide or reset Discord's default banner properties for a cleaner look */
+/* Hide Discord Banner */
+.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb .banner__68edb {
+  display: none;
+}
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb {
   overflow: visible;
   min-height: unset !important;
   contain: unset;
-  position: absolute; /* Allow banner to be absolutely positioned */
-  width: 100%;
-  height: 100%;
-}
-.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb .banner__68edb {
-  /* Hide the banner image if you want a clean background */
-  display: none; 
-  /* Or style it differently if you want it behind Mika's elements */
-  /*
-  position: absolute;
-  height: 100% !important;
-  width: 100%;
-  object-fit: cover;
-  clip-path: none;
-  -webkit-mask-image: none;
-  mask-image: none;
-  */
-}
-.layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
-  mask: none;
-}
-
-/* AVATAR - Centered at the top */
-.layer__59d0d .outer_c0bea0 .avatar__75742 {
-  position: relative; /* Make it relative to the header's flex context */
-  top: unset !important; /* Remove old absolute positioning */
-  left: unset !important; /* Remove old absolute positioning */
-  margin-bottom: 15px; /* Space below avatar */
-  z-index: 1; /* Ensure avatar is above other elements */
-}
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab {
-  top: 0;
-  left: 0;
-}
-.layer__59d0d .outer_c0bea0 .avatar__75742 .avatarPopover__2d0ab foreignObject {
-  mask: none !important;
 }
 .layer__59d0d .outer_c0bea0 .mask__44b0c circle,
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
-  display: none; /* Ensure no unwanted masks on avatar */
+  display: none;
 }
 
-/* NAME, PRONOUNS, BADGES CONTAINER - Centered directly below avatar */
+/* AVATAR - Fixed Absolute Position & Inner Halo Effect (FIXED LAYOUT) */
+.layer__59d0d .outer_c0bea0 .avatar__75742 {
+  top: 30px !important; /* Place avatar at a fixed point */
+  left: calc(50% - 40px) !important; /* Center horizontally (80px width / 2 = 40px) */
+  position: absolute !important; /* Force absolute positioning */
+  margin-bottom: 0; /* Clear previous flex margin */
+  z-index: 3;
+  
+  /* Inner Avatar Halo Effect */
+  animation: avatar-halo-pulse 4s ease-in-out infinite alternate;
+  border-radius: 50%;
+}
+
+/* NAME, PRONOUNS, BADGES CONTAINER - Fixed Absolute Position (FIXED LAYOUT) */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
-  position: relative; /* Relative to the header/flex flow */
-  top: unset; /* Remove absolute positioning */
-  left: unset; /* Remove absolute positioning */
+  position: absolute; /* Force absolute positioning */
+  top: 120px; /* Calculated to be exactly below the avatar: 30px (avatar start) + 80px (avatar size) + 10px (spacing) = 120px */
+  left: 0;
   right: unset;
   bottom: unset;
   width: 100%;
-  display: flex; /* Use flexbox for centering */
+  display: flex; 
   flex-direction: column;
-  align-items: center; /* Center items horizontally */
+  align-items: center;
   justify-content: center;
   text-align: center;
-  z-index: 2; /* Ensure it's above other elements */
-  padding-bottom: 10px; /* Space before body content */
+  z-index: 2;
+  padding-bottom: 10px;
 }
 
 /* Adjustments for Username, Pronouns, Badges within their container */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
   display: flex;
-  flex-direction: column; /* Stack name and pronouns if present */
-  align-items: center; /* Center text */
+  flex-direction: column;
+  align-items: center;
   gap: 2px;
-  margin-bottom: 5px; /* Space below name/pronouns */
+  margin-bottom: 5px;
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  width: auto; /* Allow username to take natural width */
   color: var(--mika-text-color);
-  font-size: 1.5em; /* Larger name */
+  font-size: 1.4em; /* Slightly smaller name for the smaller card */
   font-weight: 700;
-  text-shadow: 0px 0px 8px rgba(135, 206, 235, 0.8); /* Subtle text glow */
+  text-shadow: 0px 0px 8px rgba(135, 206, 235, 0.8);
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
   display: block;
   text-align: center;
 }
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
-  display: none; /* Hide default Discord edit icons */
-}
 
 /* Custom Badges Styling (Pill Shape with soft Mica look) */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 {
   display: flex;
-  flex-wrap: wrap; /* Allow badges to wrap */
-  justify-content: center; /* Center badges horizontally */
-  gap: 8px; /* Space between badges */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px; /* Smaller gap */
   margin-top: 5px;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
@@ -188,69 +185,26 @@
   background: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(10px) saturate(150%); 
   -webkit-backdrop-filter: blur(10px) saturate(150%);
-  border-radius: 9999px; /* Pill shape */
-  padding: 4px 12px; 
+  border-radius: 9999px;
+  padding: 3px 10px; /* Smaller padding */
   color: var(--mika-text-color);
-  font-size: 0.8em;
+  font-size: 0.75em;
   font-weight: 600;
-  transition: all 0.3s ease-out;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2); /* Inner highlight */
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a:hover {
-  transform: translateY(-2px) scale(1.05); 
-  background: rgba(255, 255, 255, 0.15); 
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 10px rgba(var(--mika-accent-color), 0.3); /* Subtle external shadow on hover */
-}
-/* Ensure proper ordering of custom badges if present */
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3,
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3,
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
-  order: unset; /* Remove previous order rules */
+  transform: translateY(-1px) scale(1.03); 
 }
 
-
-/* SUB CONTAINER LAYERING: Body Content Area (for additional content below name/badges) */
+/* SUB CONTAINER LAYERING: Body Content Area */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   position: relative;
   background-color: rgba(255, 255, 255, 0.05); 
-  border-radius: 0 0 25px 25px; /* Curves only at the bottom */
+  border-radius: 0 0 25px 25px;
   margin: 0 16px 16px 16px; 
   padding: 16px; 
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2); 
   color: var(--mika-text-color);
 }
-
-/* Reset Discord's wrapper for flex direction */
-.layer__59d0d .outer_c0bea0 .wrapper__4106a {
-  flex-direction: column;
-}
-
-/* Ensure inner elements like text don't break the layout */
-.layer__59d0d .outer_c0bea0 .container_ab8609 > .outer_ab8609 > .inner_ab8609 > .content_ab8609 .text-sm\/normal_cf4812 {
-  white-space: normal; /* Allow text to wrap */
-  text-overflow: unset;
-  max-width: unset;
-}
-```EOF
-
-### Key Changes for the "Mika Blue Archive Halo" Effect:
-
-1.  **Variables:** New color variables (`--mika-main-bg`, `--mika-accent-color`, `--mika-secondary-accent`, `--halo-glow-color`) to capture Mika's aesthetic.
-2.  **`outer_c0bea0` (Main Card):**
-    * **Mika Frosted Glass:** Adjusted `background-color`, `backdrop-filter`, `border`, and `box-shadow` for a lighter, cleaner glass look.
-    * **Glass Sheen Animation:** Remains but with slightly adjusted colors for the new aesthetic.
-    * **The "Halo":** This is achieved with `animation: halo-pulse`. It uses `box-shadow` with two subtle, soft blue and pink colors that gently pulse, creating that ethereal "halo" effect around the entire card.
-    * `min-height` and `width`: Added for a more controlled profile popup size.
-3.  **Layout Fixes (Aggressive Refactor):**
-    * I've stripped down and re-applied `display: flex`, `flex-direction: column`, and `align-items: center` to the `.header__5be3e` and `.container__63ed3` classes. This forces these elements into a top-to-bottom, horizontally centered layout within *our* custom card, overriding Discord's default.
-    * `position: relative` is used on these containers, and `top: unset`, `left: unset` on elements like `avatar__75742` and `container__63ed3` ensure they are positioned by the flex rules, not by old absolute values.
-4.  **Avatar (`avatar__75742`):** Now explicitly centered within the header's flex container.
-5.  **Name/Pronouns (`usernameRow__63ed3`):** Also flex-centered and given `text-shadow` for a subtle, internal glow (not an external glow from the card itself). Font size is increased for prominence.
-6.  **Badges (`tags__63ed3 .container__8061a`):** Pill-shaped, with Mica-style transparency and a subtle internal highlight, plus a faint shadow on hover.
-7.  **Body Content (`body__5be3e`):** Retains its nested Mica effect, now with rounded corners only at the bottom, creating a distinct sub-container.
-
-This CSS should give you a beautiful, functional "Blue Archive Mika" themed profile popup with a halo, and all your elements correctly positioned! http://googleusercontent.com/image_generation_content/1
