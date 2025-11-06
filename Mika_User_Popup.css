@@ -11,31 +11,31 @@
   }
 }
 
-/* 1. APPLY ANIMATED FROSTED GLASS TO THE MAIN POP-UP CONTAINER */
+/* 1. APPLY ANIMATED FROSTED GLASS TO THE MAIN POP-UP CONTAINER (OUTER CARD) */
 .layer__59d0d .outer_c0bea0 {
   /* Animated Gradient Background */
   /* Using a subtle palette that works well behind a frosted effect */
-  background: linear-gradient(135deg, #6c7b95, #c8d8e4, #5a7d9a, #333d4e);
+  background: linear-gradient(135deg, #7c4dff, #ff8a80, #64ffda, #448aff);
   background-size: 400% 400%;
-  animation: moveGradient 20s ease infinite; /* Slightly slower for the main card */
+  animation: moveGradient 20s ease infinite; /* Slower, majestic animation */
 
   /* Frosted Glass Effect (Crucial for the "cool" look) */
-  backdrop-filter: blur(18px); 
-  -webkit-backdrop-filter: blur(18px); 
+  backdrop-filter: blur(20px) saturate(150%); 
+  -webkit-backdrop-filter: blur(20px) saturate(150%); 
   
   /* Semi-transparent overlay to ensure content is visible */
-  background-color: rgba(0, 0, 0, 0.45);
-  border: none;
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.7); /* Deep shadow for definition */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black over the gradient */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for the glass look */
+  box-shadow: 0 4px 40px rgba(100, 255, 218, 0.5); /* Luminous shadow */
 }
 
-/* 2. ADJUST THE CONTENT BODY TO BE SLIGHTLY TRANSPARENT */
-/* This allows the underlying animated gradient to be visible through the glass */
+/* 2. ADJUST THE CONTENT BODY TO BE FULLY TRANSPARENT */
+/* THIS IS THE CRITICAL FIX: It allows the parent's animated glass background to be visible. */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
+  background-color: transparent !important; /* Force transparent background */
   position: static;
-  /* Make the inner body semi-transparent (75%) */
-  background-color: rgba(var(--background-secondary-alt-rgb), 0.75);
+  padding: 0;
 }
 
 /* 3. RE-APPLY ANIMATED BACKGROUND TO THE BADGES CONTAINER (Layered Effect) */
@@ -49,15 +49,15 @@
   background-size: 400% 400%; 
   animation: moveGradient 15s ease infinite; 
   
-  box-shadow: 0 0 10px rgba(76, 154, 142, 0.8); /* Stronger shadow to pop over the glass */
-  backdrop-filter: none; /* Crucial: Do not double-frost the badges */
+  box-shadow: 0 0 12px rgba(255, 100, 100, 0.8); /* Stronger shadow to pop over the glass */
+  backdrop-filter: none; 
   -webkit-backdrop-filter: none;
 }
 
 /* 4. ENSURE NAME IS HIGHLY VISIBLE */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  color: white; 
-  text-shadow: 0 0 6px rgba(0, 0, 0, 1); /* Darker shadow for maximum contrast over animated banner/glass */
+  color: #fff; 
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1), 0 0 5px #448aff; /* Luminous text for contrast */
 }
 
 
