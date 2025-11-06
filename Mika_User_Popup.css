@@ -1,3 +1,4 @@
+/* --- KEYFRAMES FOR ANIMATED GRADIENT (USED ON BOTH POP-UP AND BADGE) --- */
 @keyframes moveGradient {
   0% {
     background-position: 0% 50%;
@@ -10,47 +11,57 @@
   }
 }
 
-/* 1. APPLY THE COOL, ANIMATED BACKGROUND TO THE BADGES CONTAINER */
+/* 1. APPLY ANIMATED FROSTED GLASS TO THE MAIN POP-UP CONTAINER */
+.layer__59d0d .outer_c0bea0 {
+  /* Animated Gradient Background */
+  /* Using a subtle palette that works well behind a frosted effect */
+  background: linear-gradient(135deg, #6c7b95, #c8d8e4, #5a7d9a, #333d4e);
+  background-size: 400% 400%;
+  animation: moveGradient 20s ease infinite; /* Slightly slower for the main card */
+
+  /* Frosted Glass Effect (Crucial for the "cool" look) */
+  backdrop-filter: blur(18px); 
+  -webkit-backdrop-filter: blur(18px); 
+  
+  /* Semi-transparent overlay to ensure content is visible */
+  background-color: rgba(0, 0, 0, 0.45);
+  border: none;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.7); /* Deep shadow for definition */
+}
+
+/* 2. ADJUST THE CONTENT BODY TO BE SLIGHTLY TRANSPARENT */
+/* This allows the underlying animated gradient to be visible through the glass */
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: static;
+  /* Make the inner body semi-transparent (75%) */
+  background-color: rgba(var(--background-secondary-alt-rgb), 0.75);
+}
+
+/* 3. RE-APPLY ANIMATED BACKGROUND TO THE BADGES CONTAINER (Layered Effect) */
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
   border: none;
   border-radius: 8px;
   padding: 4px 8px;
   
-  /* The Animation: Multi-color gradient that shifts slowly */
+  /* Independent Animation for Badge Pill */
   background: linear-gradient(135deg, #FF6F61, #FFD166, #4C9A8E, #264653); 
-  background-size: 400% 400%; /* Important for smooth, large-scale movement */
-  animation: moveGradient 15s ease infinite; /* 15s loop for a gentle, mesmerizing shift */
+  background-size: 400% 400%; 
+  animation: moveGradient 15s ease infinite; 
   
-  /* Subtle effects for depth */
-  box-shadow: 0 0 12px rgba(76, 154, 142, 0.6); 
-  
-  /* Ensure no residual blur is active */
-  backdrop-filter: none; 
+  box-shadow: 0 0 10px rgba(76, 154, 142, 0.8); /* Stronger shadow to pop over the glass */
+  backdrop-filter: none; /* Crucial: Do not double-frost the badges */
   -webkit-backdrop-filter: none;
 }
 
-/* 2. ENSURE NAME IS HIGHLY VISIBLE OVER THE BANNER/BADGES */
+/* 4. ENSURE NAME IS HIGHLY VISIBLE */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
   color: white; 
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-}
-
-/* 3. ENSURE THE MAIN CARD AND BODY ARE DEFAULT (No Glass/Blur) */
-.layer__59d0d .outer_c0bea0 {
-  background: var(--background-primary);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-  border: none;
-}
-.layer__59d0d .outer_c0bea0 .body__5be3e,
-.layer__59d0d .outer_c0bea0 .body_ce8328 {
-  position: static;
-  background-color: var(--background-secondary-alt);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1); /* Darker shadow for maximum contrast over animated banner/glass */
 }
 
 
-/* --- STRUCTURAL LAYOUT RULES (Retained for centering) --- */
+/* --- STRUCTURAL LAYOUT RULES (RETAINED FOR CENTERING) --- */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
   min-height: 220px !important;
 }
