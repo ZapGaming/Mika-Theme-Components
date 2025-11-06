@@ -1,13 +1,13 @@
-/* --- BLUE ARCHIVE MIKA THEME VARIABLES (Refined) --- */
+/* --- BLUE ARCHIVE MIKA THEME VARIABLES (Compact & Zen) --- */
 :root {
   --mika-main-bg: rgba(255, 255, 255, 0.08); /* Lighter base */
   --mika-accent-color: #87CEEB; /* Sky Blue */
   --mika-secondary-accent: #FFC0CB; /* Soft Pink */
   --mika-text-color: #FFFFFF;
-  --mika-blur: 30px; /* Medium blur */
-  --card-border-radius: 30px; /* Slightly smaller curves */
-  --halo-size: 6px; /* Smaller, focused outer halo */
-  --header-height: 160px; /* Fixed height for precise layout calculation */
+  --mika-blur: 35px; /* Softer, dreamier blur for zen */
+  --card-border-radius: 30px;
+  --halo-size: 6px;
+  --header-height: 140px; /* REDUCED: Compact vertical space */
 }
 
 /* --- ANIMATIONS --- */
@@ -18,24 +18,24 @@
   100% { background-position: 200% 0; }
 }
 
-/* 2. Soft Outer Halo Pulse (The full card glow) */
+/* 2. Soft Outer Halo Pulse (SLOWER & SOFTER) */
 @keyframes halo-pulse {
-  0% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.15), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
-  50% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.3), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.2); }
-  100% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.15), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.1); }
+  0% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.1), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.05); } 
+  50% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.25), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.15); } 
+  100% { box-shadow: 0 0 0px var(--halo-size) rgba(135, 206, 235, 0.1), 0 0 0px var(--halo-size) rgba(255, 192, 203, 0.05); }
 }
 
-/* 3. Animated Border (More Effects) */
+/* 3. Animated Border (SLOWER rotation for Zen) */
 @keyframes rotate-border {
     0% { background-position: 0% 0%; }
     100% { background-position: 300% 300%; }
 }
 
-/* 4. Avatar Inner Halo Pulse (Blue Archive pfp highlight) */
+/* 4. Avatar Inner Halo Pulse (SLOWER & SOFTER) */
 @keyframes avatar-halo-pulse {
-  0% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 10px 3px var(--mika-accent-color); }
-  50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.6), 0 0 20px 6px var(--mika-secondary-accent); }
-  100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 10px 3px var(--mika-accent-color); }
+  0% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 0 10px 3px var(--mika-accent-color); } 
+  50% { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5), 0 0 15px 5px var(--mika-secondary-accent); } 
+  100% { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 0 10px 3px var(--mika-accent-color); }
 }
 
 /* --- MAIN PROFILE POPUP CONTAINER (The "Halo" container) --- */
@@ -44,8 +44,8 @@
   overflow: hidden;
   z-index: 10;
   
-  min-height: 360px; /* Made smaller */
-  width: 300px; /* Made smaller */
+  min-height: 320px; /* REDUCED: Smaller total card height */
+  width: 270px; /* REDUCED: Slimmer card width */
   margin: 20px auto;
 
   /* Mika Frosted Glass Base */
@@ -68,12 +68,12 @@
       rgba(255, 255, 255, 0) 70%
   );
   background-size: 200% 100%; 
-  animation: glass-sheen 8s linear infinite, halo-pulse 5s ease-in-out infinite alternate;
+  animation: glass-sheen 8s linear infinite, halo-pulse 7s ease-in-out infinite alternate; 
 
   transition: all 0.5s ease-in-out;
 }
 
-/* Animated Outer Border (More Effects) */
+/* Animated Outer Border */
 .layer__59d0d .outer_c0bea0::before {
     content: '';
     position: absolute;
@@ -88,7 +88,7 @@
     background-size: 300% 300%;
     border-radius: var(--card-border-radius);
     filter: blur(8px);
-    animation: rotate-border 10s linear infinite;
+    animation: rotate-border 15s linear infinite; 
 }
 
 /* Hover Effect: Lift and intensify depth */
@@ -102,11 +102,11 @@
 
 /* Header Area (Defines the space for PFP, Name, Badges) */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
-  min-height: var(--header-height) !important; /* Fixed height for calculation */
+  min-height: var(--header-height) !important; /* FIXED HEIGHT (140px) */
   border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
   background: transparent;
   padding-top: 0;
-  position: relative; /* Must be relative for absolute children positioning */
+  position: relative;
 }
 
 /* Hide Discord Banner */
@@ -123,23 +123,23 @@
   display: none;
 }
 
-/* AVATAR - Fixed Absolute Position & Inner Halo Effect (FIXED LAYOUT) */
+/* AVATAR - Fixed Absolute Position & Inner Halo Effect (ADJUSTED POSITION) */
 .layer__59d0d .outer_c0bea0 .avatar__75742 {
-  top: 30px !important; /* Place avatar at a fixed point */
-  left: calc(50% - 40px) !important; /* Center horizontally (80px width / 2 = 40px) */
-  position: absolute !important; /* Force absolute positioning */
-  margin-bottom: 0; /* Clear previous flex margin */
+  top: 30px !important; /* RE-CENTERED: (140px header - 80px pfp) / 2 = 30px */
+  left: calc(50% - 40px) !important; 
+  position: absolute !important;
+  margin-bottom: 0;
   z-index: 3;
   
-  /* Inner Avatar Halo Effect */
-  animation: avatar-halo-pulse 4s ease-in-out infinite alternate;
+  /* Inner Avatar Halo Effect (SLOWER ANIMATION) */
+  animation: avatar-halo-pulse 6s ease-in-out infinite alternate; 
   border-radius: 50%;
 }
 
-/* NAME, PRONOUNS, BADGES CONTAINER - Fixed Absolute Position (FIXED LAYOUT) */
+/* NAME, PRONOUNS, BADGES CONTAINER - Fixed Absolute Position (ADJUSTED POSITION) */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
-  position: absolute; /* Force absolute positioning */
-  top: 120px; /* Calculated to be exactly below the avatar: 30px (avatar start) + 80px (avatar size) + 10px (spacing) = 120px */
+  position: absolute;
+  top: 120px; /* RE-CENTERED: 30px (avatar start) + 80px (avatar size) + 10px (spacing) = 120px */
   left: 0;
   right: unset;
   bottom: unset;
@@ -163,9 +163,9 @@
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
   color: var(--mika-text-color);
-  font-size: 1.4em; /* Slightly smaller name for the smaller card */
+  font-size: 1.4em;
   font-weight: 700;
-  text-shadow: 0px 0px 8px rgba(135, 206, 235, 0.8);
+  text-shadow: 0px 0px 6px rgba(135, 206, 235, 0.6); 
 }
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
   display: block;
@@ -177,7 +177,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px; /* Smaller gap */
+  gap: 6px;
   margin-top: 5px;
 }
 .layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
@@ -186,7 +186,7 @@
   backdrop-filter: blur(10px) saturate(150%); 
   -webkit-backdrop-filter: blur(10px) saturate(150%);
   border-radius: 9999px;
-  padding: 3px 10px; /* Smaller padding */
+  padding: 3px 10px;
   color: var(--mika-text-color);
   font-size: 0.75em;
   font-weight: 600;
