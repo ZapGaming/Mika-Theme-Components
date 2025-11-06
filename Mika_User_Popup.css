@@ -113,7 +113,7 @@
 /* Custom Container Positioning (Name, Pronouns, Badges) - Centered Below Avatar */
 .layer__59d0d .outer_c0bea0 .container__63ed3 {
   position: absolute;
-  top: 105px; /* Vertical position adjustment */
+  top: 60px; /* SHIFTED UP from 105px to 60px */
   left: 0;
   right: unset;
   width: 100%;
