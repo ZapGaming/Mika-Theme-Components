@@ -1,9 +1,41 @@
-:root {
-  /* Dark, semi-transparent background for badge pills */
-  --badges-background: rgba(0, 0, 0, 0.5);
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* 1. Ensure the main card container reverts to its standard look */
+/* 1. APPLY THE COOL, ANIMATED BACKGROUND TO THE BADGES CONTAINER */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  
+  /* The Animation: Multi-color gradient that shifts slowly */
+  background: linear-gradient(135deg, #FF6F61, #FFD166, #4C9A8E, #264653); 
+  background-size: 400% 400%; /* Important for smooth, large-scale movement */
+  animation: moveGradient 15s ease infinite; /* 15s loop for a gentle, mesmerizing shift */
+  
+  /* Subtle effects for depth */
+  box-shadow: 0 0 12px rgba(76, 154, 142, 0.6); 
+  
+  /* Ensure no residual blur is active */
+  backdrop-filter: none; 
+  -webkit-backdrop-filter: none;
+}
+
+/* 2. ENSURE NAME IS HIGHLY VISIBLE OVER THE BANNER/BADGES */
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
+  color: white; 
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+/* 3. ENSURE THE MAIN CARD AND BODY ARE DEFAULT (No Glass/Blur) */
 .layer__59d0d .outer_c0bea0 {
   background: var(--background-primary);
   backdrop-filter: none;
@@ -11,34 +43,14 @@
   box-shadow: none;
   border: none;
 }
-
-/* 2. Ensure the content body reverts to its standard look */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   position: static;
   background-color: var(--background-secondary-alt);
 }
 
-/* 3. Apply the custom background to the badges container */
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  border: none;
-  /* Use the defined semi-transparent color */
-  background: var(--badges-background); 
-  border-radius: 8px;
-  padding: 4px 6px;
-  /* Ensure no residual blur */
-  backdrop-filter: none; 
-  -webkit-backdrop-filter: none;
-}
 
-/* 4. Ensure name is highly visible over the banner/badges */
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  color: white; 
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-}
-
-
-/* --- PREVIOUS STRUCTURAL LAYOUT RULES (Retained for centering) --- */
+/* --- STRUCTURAL LAYOUT RULES (Retained for centering) --- */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
   min-height: 220px !important;
 }
