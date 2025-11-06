@@ -136,7 +136,7 @@
     transform: translateY(-3px) scale(1.05); /* Pronounced badge lift */
 }
 
-/* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (kept intact) --- */
+/* --- ORIGINAL LAYOUT/FUNCTIONALITY RULES (Kept layout positioning minimal) --- */
 
 /* Header Layering - Giving the top mask area a slightly less transparent background */
 .layer__59d0d .outer_c0bea0 .header__5be3e {
@@ -208,41 +208,35 @@
 .layer__59d0d .outer_c0bea0 .mask__44b0c rect[fill=black] {
   display: none;
 }
-.layer__59d0d .outer_c0bea0 .container__63ed3 {
-  position: absolute;
-  top: 105px;
-  left: 0;
-  right: unset;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-  justify-items: center;
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .nicknameIcons__63ed3 {
+  /* Hiding this specific element that contains the nickname edit icon */
+  display: none; 
 }
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
-  width: 100%;
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
-  display: block;
-  text-align: center;
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .nicknameIcons__63ed3 {
-  display: none;
-}
-.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 {
-  gap: 0;
-  flex-direction: column;
-}
+/* Revert the username/tags container back to its default positioning */
+.layer__59d0d .outer_c0bea0 .container__63ed3,
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3,
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3,
 .layer__59d0d .outer_c0bea0 .tags__63ed3 {
-  margin-top: 2.5px;
-  justify-content: center;
-  flex-direction: row;
+  /* Remove all previously added positioning/flex/centering properties */
+  position: unset; 
+  top: unset; 
+  left: unset;
+  right: unset;
+  width: unset;
+  text-align: unset;
+  justify-content: unset;
+  justify-items: unset;
+  flex-direction: unset;
+  order: unset;
+  margin-top: unset;
 }
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .dotSpacer__63ed3 {
-  order: -2;
+/* Ensure the H1 (username) styling is also reverted */
+.layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 h1 {
+  display: unset;
+  text-align: unset;
 }
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .clickableUsername__63ed3 {
-  order: -3;
-}
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .guildTagContainer__63ed3 {
-  order: -1;
+/* Keep the body content section styled as a sub-container */
+.layer__59d0d .outer_c0bea0 .body__5be3e,
+.layer__59d0d .outer_c0bea0 .body_ce8328 {
+  position: static;
 }
