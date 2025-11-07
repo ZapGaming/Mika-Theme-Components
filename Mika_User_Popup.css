@@ -1,4 +1,4 @@
-/* --- KEYFRAMES FOR ANIMATED GRADIENT (USED ON BOTH POP-UP AND BADGE) --- */
+/* --- KEYFRAMES FOR ANIMATED GRADIENT (SHIMMER EFFECT) --- */
 @keyframes moveGradient {
   0% {
     background-position: 0% 50%;
@@ -13,27 +13,58 @@
 
 /* 1. APPLY ANIMATED FROSTED GLASS TO THE MAIN POP-UP CONTAINER (OUTER CARD) */
 .layer__59d0d .outer_c0bea0 {
-  /* Animated Gradient Background - ELECTRIC & VIBRANT COLORS */
-  background: linear-gradient(135deg, #7B61FF, #00A3FF, #00E0FF, #74FFFF); /* Electric purples, blues, and cyan */
+  /* Animated Gradient Background - High-Gloss Iridescence */
+  background: linear-gradient(135deg, #4A148C, #00A3FF, #FFC0CB, #4A148C); /* Deep Purple, Blue, Pink, Deep Purple */
   background-size: 400% 400%;
-  animation: moveGradient 20s ease infinite; 
+  animation: moveGradient 18s ease infinite; 
 
-  /* Frosted Glass Effect - HIGH GLOSS & LUMINOSITY */
-  backdrop-filter: blur(30px) saturate(180%) brightness(130%); /* Increased blur and added brightness for shine */
-  -webkit-backdrop-filter: blur(30px) saturate(180%) brightness(130%); 
+  /* Frosted Glass Effect - MAXIMUM SHINE AND LUMINOSITY */
+  backdrop-filter: blur(40px) saturate(200%) brightness(150%); /* Max blur and shine for glass effect */
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(150%); 
   
   /* Semi-transparent overlay for color consistency */
-  background-color: rgba(0, 0, 0, 0.3); 
-  border: 2px solid rgba(255, 255, 255, 0.4); /* Thicker, more reflective border */
+  background-color: rgba(255, 255, 255, 0.15); 
+  border: 4px solid rgba(255, 255, 255, 0.7); /* Thicker, intense white reflective border */
+  border-radius: 20px; /* Slightly rounder for more bubble effect */
   
-  /* SHINY & BUBBLY BOX-SHADOW */
+  /* SHINY & BUBBLY BOX-SHADOW - PINK/PURPLE TIE-IN */
   box-shadow: 
-    inset 0 0 30px rgba(255, 255, 255, 0.3), /* Strong inner reflection for glossy look */
-    0 15px 40px rgba(0, 0, 0, 0.7), /* Major lift and depth (Bubbly effect) */
-    0 0 80px rgba(0, 163, 255, 0.8); /* Intense outer blue glow (Shiny effect) */
+    inset 0 0 50px rgba(255, 255, 255, 0.4), /* Strong inner reflection/gloss */
+    0 25px 50px rgba(0, 0, 0, 0.8), /* Major lift and depth (Bubbly effect) */
+    0 0 100px rgba(255, 105, 180, 0.8), /* Intense outer Pink glow */
+    0 0 50px rgba(138, 43, 226, 0.5); /* Secondary outer Purple glow */
 }
 
-/* 2. ADJUST THE CONTENT BODY TO BE FULLY TRANSPARENT (CRITICAL FIX) */
+/* 2. FORCE MAIN CONTENT ALIGNMENT TO CENTER */
+.layer__59d0d .outer_c0bea0 .wrapper__4106a {
+  flex-direction: column;
+  align-items: center; /* NEW: Centers the content horizontally */
+}
+
+/* 3. APPLY ANIMATED FROSTED GLASS TO THE BADGES CONTAINER - BUBBLE SHIMMER EFFECT */
+.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
+  border: 1px solid rgba(255, 255, 255, 0.7); /* Brighter border */
+  border-radius: 9999px; /* Max radius for maximum bubble shape */
+  padding: 4px 10px;
+  
+  /* Animated Gradient Background - Pink, Purple, Blue */
+  background: linear-gradient(135deg, #FF69B4, #8A2BE2, #00BFFF, #1E90FF); 
+  background-size: 600% 600%; /* Increased size for slow, deep shimmer */
+  animation: moveGradient 25s ease infinite reverse; /* Slower animation for deeper shimmer */
+  
+  /* Frosted Glass Effect - Max shine */
+  backdrop-filter: blur(12px) saturate(250%) brightness(150%); 
+  -webkit-backdrop-filter: blur(12px) saturate(250%) brightness(150%); 
+  
+  /* BUBBLY & SHIMMERING BADGE SHADOW */
+  box-shadow: 
+    inset 0 0 15px rgba(255, 255, 255, 0.9), /* INTENSE INNER SHIMMER/HIGHLIGHT */
+    inset 0 0 5px rgba(255, 255, 255, 0.5), 
+    0 8px 20px rgba(0, 0, 0, 0.5), /* Depth/Lift (Bubbly) */
+    0 0 40px rgba(138, 43, 226, 0.7); /* Outer purple/blue glow */
+}
+
+/* 4. ADJUST THE CONTENT BODY TO BE FULLY TRANSPARENT (CRITICAL FIX) */
 .layer__59d0d .outer_c0bea0 .body__5be3e,
 .layer__59d0d .outer_c0bea0 .body_ce8328 {
   background-color: transparent !important; 
@@ -41,28 +72,7 @@
   padding: 0;
 }
 
-/* 3. APPLY ANIMATED FROSTED GLASS TO THE BADGES CONTAINER - LIFTED & GLOSSY */
-.layer__59d0d .outer_c0bea0 .tags__63ed3 .container__8061a {
-  border: 1px solid rgba(255, 255, 255, 0.5); 
-  border-radius: 12px; /* Slightly more rounded/bubbly */
-  padding: 4px 10px;
-  
-  /* Animated Gradient Background - Muted cool tones with reflection */
-  background: linear-gradient(135deg, rgba(123,97,255,0.4), rgba(0,163,255,0.4), rgba(0,224,255,0.4)); 
-  background-size: 400% 400%;
-  animation: moveGradient 15s ease infinite reverse; 
-  
-  /* Frosted Glass Effect */
-  backdrop-filter: blur(10px) saturate(200%); 
-  -webkit-backdrop-filter: blur(10px) saturate(200%); 
-  
-  /* BUBBLY BADGE SHADOW */
-  box-shadow: 
-    inset 0 0 10px rgba(255, 255, 255, 0.8), /* Very strong inner shine */
-    0 4px 15px rgba(0, 163, 255, 0.6); /* Pronounced outer glow and lift */
-}
-
-/* 4. ENSURE NAME IS HIGHLY VISIBLE - REFINED TEXT SHADOW */
+/* 5. ENSURE NAME IS HIGHLY VISIBLE - REFINED TEXT SHADOW */
 .layer__59d0d .outer_c0bea0 .usernameRow__63ed3 .clickableUsername__63ed3 {
   color: #fff; 
   text-shadow: 0 0 10px rgba(0, 0, 0, 1), 0 0 5px rgba(255, 255, 255, 0.5); 
@@ -87,9 +97,6 @@
 }
 .layer__59d0d .outer_c0bea0 .header__5be3e > .mask__68edb > foreignObject {
   mask: none;
-}
-.layer__59d0d .outer_c0bea0 .wrapper__4106a {
-  flex-direction: column;
 }
 .layer__59d0d .outer_c0bea0 .container_ab8609 {
   top: unset;
