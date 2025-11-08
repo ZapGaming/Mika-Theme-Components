@@ -3,7 +3,34 @@
   --username-horizontal-padding: 8px;
   --username-border-radius: 8px;
   --username-plugin-suffix: "| @";
-  /* Removed old halo variables for simplicity */
+}
+
+/* 1. Keyframes for the pulsing gradient halo */
+@keyframes gradient-halo-pulse {
+  0% { 
+    opacity: 0.8; 
+    box-shadow: 
+        0 0 10px 5px var(--custom-gradient-color-1), /* Soft glow */
+        0 0 0 1px var(--custom-gradient-color-1);   /* Thin ring */
+  }
+  33% { 
+    opacity: 1; 
+    box-shadow: 
+        0 0 25px 10px var(--custom-gradient-color-2), 
+        0 0 0 2px var(--custom-gradient-color-2);
+  }
+  66% { 
+    opacity: 0.8; 
+    box-shadow: 
+        0 0 10px 5px var(--custom-gradient-color-3), 
+        0 0 0 1px var(--custom-gradient-color-3);
+  }
+  100% { 
+    opacity: 0.8; 
+    box-shadow: 
+        0 0 10px 5px var(--custom-gradient-color-1), 
+        0 0 0 1px var(--custom-gradient-color-1);
+  }
 }
 
 .vc-smyn-suffix {
@@ -36,20 +63,21 @@
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.15); 
+  /* Thinner inner border (0.5px) */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1); 
 
-  /* 1. Halo Effect Pseudo-element (Floating Layer) */
+  /* 2. Halo Effect Pseudo-element (Hidden by default, Floating Ring) */
   &::before {
     content: '';
     position: absolute;
-    inset: -5px; /* Extends outward to surround the element */
+    inset: -3px; /* Slightly wider floating ring */
     border-radius: inherit;
     
     background: transparent;
     box-shadow: 0 0 0 0 transparent; /* Hidden by default */
     
     transition: box-shadow 0.4s ease-out, transform 0.4s ease-out;
-    z-index: 0; /* Ensures the halo floats above the glass background, but behind the text content */
+    z-index: 0; /* Ensures the halo floats above the glass background */
   }
 
   &:hover {
@@ -57,15 +85,16 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
     transform: translateY(-2px) scale(1.02);
     
-    /* 2. Activate Halo on Hover (Normal User) */
+    /* 3. Activate Halo Glow on Hover (Normal User - Static Glow) */
     &::before {
-      /* Create a multi-layered box-shadow halo using currentColor (the user's role color) */
+      /* Static glow using currentColor */
       box-shadow: 
         /* Outer spread glow */
-        0 0 30px 10px color-mix(in srgb, currentColor 30%, transparent), 
-        /* Inner intense glow */
-        0 0 15px 5px color-mix(in srgb, currentColor 60%, transparent); 
-      transform: scale(1.05); /* Halo expands slightly */
+        0 0 20px 8px color-mix(in srgb, currentColor 40%, transparent), 
+        /* Inner solid line ring */
+        0 0 0 2px color-mix(in srgb, currentColor 80%, transparent); 
+      transform: scale(1.02); 
+      animation: none; /* Stops potential animations from running */
     }
   }
 }
@@ -98,19 +127,14 @@
     text-decoration: none !important;
   }
   
-  /* 3. Gradient Halo Override - Uses the middle gradient color for the glow */
+  /* 4. Gradient Halo Override - Animated Ring on Hover */
   &:hover::before {
-    --gradient-halo-color: var(--custom-gradient-color-2); /* Use middle color for glow */
-    
-    box-shadow: 
-        /* Outer spread glow */
-        0 0 30px 10px color-mix(in srgb, var(--gradient-halo-color) 30%, transparent), 
-        /* Inner intense glow */
-        0 0 15px 5px color-mix(in srgb, var(--gradient-halo-color) 60%, transparent); 
-    transform: scale(1.05);
+    animation: gradient-halo-pulse 3s infinite ease-in-out;
+    transform: scale(1.02);
+    /* Box-shadow is fully controlled by the keyframes */
   }
 
-  /* Internal Gradient Background (z-index: -1 via the selector) */
+  /* Internal Gradient Background */
   &::after { 
     content: "";
     z-index: -1; 
