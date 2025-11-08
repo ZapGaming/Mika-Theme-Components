@@ -5,18 +5,14 @@
   --username-plugin-suffix: "| @";
 }
 
-/* 1. Keyframes for the border "fizzing" and flickering glow */
-@keyframes fizz-flicker {
-  0% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
-  20% { box-shadow: 0 0 5px 2px color-mix(in srgb, currentColor 80%, transparent), 0 0 0 1px currentColor; opacity: 1; }
-  40% { box-shadow: 0 0 0 0 currentColor; opacity: 0.8; }
-  60% { box-shadow: 0 0 10px 4px color-mix(in srgb, currentColor 70%, transparent), 0 0 0 2px currentColor; opacity: 1; }
-  80% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
-  100% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
+/* 1. Keyframes for animated gradient background (for gradient roles) */
+@keyframes gradient-bg-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
-/* 2. Keyframes for animated gradient background */
-@keyframes gradient-bg-slide {
+/* 2. Keyframes for animated solid background (for normal roles) */
+@keyframes color-bg-slide {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
@@ -47,25 +43,25 @@
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, box-shadow, backdrop-filter;
   
-  /* Frosted Glass Effect */
+  /* Frosted Glass Effect (Core) */
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   
   /* Thinner inner border (0.5px) and lift shadow */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1); 
 
-  /* 3. Fizzing Border Pseudo-element (Hidden by default) */
+  /* 3. Passive Pseudo-element (Removed fizz/halo logic) */
   &::before {
     content: '';
     position: absolute;
-    inset: -3px; /* Slightly wider floating ring area */
+    inset: -3px; 
     border-radius: inherit;
     background: transparent;
-    transition: box-shadow 0.4s ease-out, transform 0.4s ease-out;
-    z-index: 0; /* Ensures the glow is visible */
+    transition: none; 
+    z-index: 0; 
     
-    /* Default state: invisible */
-    box-shadow: 0 0 0 0 transparent; 
+    /* Reset state: inert */
+    box-shadow: none; 
     opacity: 0;
   }
 
@@ -74,21 +70,28 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
     transform: translateY(-2px) scale(1.02);
     
-    /* 4. Activate Fizzing Border on Hover (Normal User) */
+    /* Ensure the passive element is reset */
     &::before {
-      opacity: 1;
-      transform: scale(1.02); 
-      animation: fizz-flicker 1.5s infinite alternate ease-in-out; 
+      opacity: 0;
+      animation: none; 
     }
   }
 }
 
-/* Normal Usernames: Frosted Tint */
+/* 4. Normal Usernames: Animated Lighter BG */
 .username_c19a55:not(.convenienceGlowGradient_e5de78) {
-  background-color: color-mix(in srgb, currentColor 5%, rgba(255, 255, 255, 0.15));
+  /* Set base background using a linear gradient of lighter role colors */
+  background: linear-gradient(
+    90deg, 
+    color-mix(in srgb, currentColor 5%, rgba(255, 255, 255, 0.15)), 
+    color-mix(in srgb, currentColor 15%, rgba(255, 255, 255, 0.25)),
+    color-mix(in srgb, currentColor 5%, rgba(255, 255, 255, 0.15))
+  );
+  background-size: 200% 100%;
 
   &:hover {
-    background-color: color-mix(in srgb, currentColor 15%, rgba(255, 255, 255, 0.3));
+    /* Activate the smooth background animation */
+    animation: color-bg-slide 5s linear infinite alternate;
   }
 }
 
@@ -111,20 +114,13 @@
     text-decoration: none !important;
   }
   
-  /* 5. Gradient Fizzing Border Override */
+  /* 5. Ensure before is inert */
   &:hover::before {
-    /* To use gradient colors in the fizz, we use the average color as currentColor */
-    /* This overrides the fizz-flicker animation to use the gradient's visual colors */
-    animation: fizz-flicker 1.5s infinite alternate ease-in-out;
-    transform: scale(1.02);
-    
-    /* We can't easily animate the box-shadow colors in keyframes, 
-       so we use the middle gradient color as the effective "currentColor" 
-       for the fizz-flicker keyframe inside this context. */
-    color: var(--custom-gradient-color-2);
+    opacity: 0;
+    animation: none;
   }
 
-  /* 6. Internal Gradient Background (Animated BG) */
+  /* 6. Internal Gradient Background (Lighter and Animated) */
   &::after { 
     content: "";
     z-index: -1; 
@@ -136,15 +132,14 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     
-    /* Animated Background Setup */
+    /* Lighter Animated Background Setup */
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--custom-gradient-color-1) 15%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-2) 25%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-3) 15%, transparent)
+      color-mix(in srgb, var(--custom-gradient-color-1) 5%, transparent),
+      color-mix(in srgb, var(--custom-gradient-color-2) 10%, transparent),
+      color-mix(in srgb, var(--custom-gradient-color-3) 5%, transparent)
     );
     
-    /* Set up for the sliding animation */
     background-size: 200% auto; /* Make the gradient twice as wide for sliding */
   }
 
