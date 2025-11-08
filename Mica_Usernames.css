@@ -5,32 +5,20 @@
   --username-plugin-suffix: "| @";
 }
 
-/* 1. Keyframes for the pulsing gradient halo */
-@keyframes gradient-halo-pulse {
-  0% { 
-    opacity: 0.8; 
-    box-shadow: 
-        0 0 10px 5px var(--custom-gradient-color-1), /* Soft glow */
-        0 0 0 1px var(--custom-gradient-color-1);   /* Thin ring */
-  }
-  33% { 
-    opacity: 1; 
-    box-shadow: 
-        0 0 25px 10px var(--custom-gradient-color-2), 
-        0 0 0 2px var(--custom-gradient-color-2);
-  }
-  66% { 
-    opacity: 0.8; 
-    box-shadow: 
-        0 0 10px 5px var(--custom-gradient-color-3), 
-        0 0 0 1px var(--custom-gradient-color-3);
-  }
-  100% { 
-    opacity: 0.8; 
-    box-shadow: 
-        0 0 10px 5px var(--custom-gradient-color-1), 
-        0 0 0 1px var(--custom-gradient-color-1);
-  }
+/* 1. Keyframes for the border "fizzing" and flickering glow */
+@keyframes fizz-flicker {
+  0% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
+  20% { box-shadow: 0 0 5px 2px color-mix(in srgb, currentColor 80%, transparent), 0 0 0 1px currentColor; opacity: 1; }
+  40% { box-shadow: 0 0 0 0 currentColor; opacity: 0.8; }
+  60% { box-shadow: 0 0 10px 4px color-mix(in srgb, currentColor 70%, transparent), 0 0 0 2px currentColor; opacity: 1; }
+  80% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
+  100% { box-shadow: 0 0 0 0 currentColor; opacity: 0.9; }
+}
+
+/* 2. Keyframes for animated gradient background */
+@keyframes gradient-bg-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .vc-smyn-suffix {
@@ -63,21 +51,22 @@
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   
-  /* Thinner inner border (0.5px) */
+  /* Thinner inner border (0.5px) and lift shadow */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1); 
 
-  /* 2. Halo Effect Pseudo-element (Hidden by default, Floating Ring) */
+  /* 3. Fizzing Border Pseudo-element (Hidden by default) */
   &::before {
     content: '';
     position: absolute;
-    inset: -3px; /* Slightly wider floating ring */
+    inset: -3px; /* Slightly wider floating ring area */
     border-radius: inherit;
-    
     background: transparent;
-    box-shadow: 0 0 0 0 transparent; /* Hidden by default */
-    
     transition: box-shadow 0.4s ease-out, transform 0.4s ease-out;
-    z-index: 0; /* Ensures the halo floats above the glass background */
+    z-index: 0; /* Ensures the glow is visible */
+    
+    /* Default state: invisible */
+    box-shadow: 0 0 0 0 transparent; 
+    opacity: 0;
   }
 
   &:hover {
@@ -85,16 +74,11 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
     transform: translateY(-2px) scale(1.02);
     
-    /* 3. Activate Halo Glow on Hover (Normal User - Static Glow) */
+    /* 4. Activate Fizzing Border on Hover (Normal User) */
     &::before {
-      /* Static glow using currentColor */
-      box-shadow: 
-        /* Outer spread glow */
-        0 0 20px 8px color-mix(in srgb, currentColor 40%, transparent), 
-        /* Inner solid line ring */
-        0 0 0 2px color-mix(in srgb, currentColor 80%, transparent); 
+      opacity: 1;
       transform: scale(1.02); 
-      animation: none; /* Stops potential animations from running */
+      animation: fizz-flicker 1.5s infinite alternate ease-in-out; 
     }
   }
 }
@@ -127,14 +111,20 @@
     text-decoration: none !important;
   }
   
-  /* 4. Gradient Halo Override - Animated Ring on Hover */
+  /* 5. Gradient Fizzing Border Override */
   &:hover::before {
-    animation: gradient-halo-pulse 3s infinite ease-in-out;
+    /* To use gradient colors in the fizz, we use the average color as currentColor */
+    /* This overrides the fizz-flicker animation to use the gradient's visual colors */
+    animation: fizz-flicker 1.5s infinite alternate ease-in-out;
     transform: scale(1.02);
-    /* Box-shadow is fully controlled by the keyframes */
+    
+    /* We can't easily animate the box-shadow colors in keyframes, 
+       so we use the middle gradient color as the effective "currentColor" 
+       for the fizz-flicker keyframe inside this context. */
+    color: var(--custom-gradient-color-2);
   }
 
-  /* Internal Gradient Background */
+  /* 6. Internal Gradient Background (Animated BG) */
   &::after { 
     content: "";
     z-index: -1; 
@@ -146,20 +136,20 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     
+    /* Animated Background Setup */
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--custom-gradient-color-1) 10%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-2) 15%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-3) 10%, transparent)
+      color-mix(in srgb, var(--custom-gradient-color-1) 15%, transparent),
+      color-mix(in srgb, var(--custom-gradient-color-2) 25%, transparent),
+      color-mix(in srgb, var(--custom-gradient-color-3) 15%, transparent)
     );
+    
+    /* Set up for the sliding animation */
+    background-size: 200% auto; /* Make the gradient twice as wide for sliding */
   }
 
   &:hover::after {
-    background: linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--custom-gradient-color-1) 20%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-2) 30%, transparent),
-      color-mix(in srgb, var(--custom-gradient-color-3) 20%, transparent)
-    );
+    /* 7. Activate Background Slide Animation on Hover */
+    animation: gradient-bg-slide 5s linear infinite alternate;
   }
 }
