@@ -1,19 +1,14 @@
 :root {
-  --username-vertical-padding: 2px; /* Slight increase for better visual spacing */
-  --username-horizontal-padding: 8px; /* Slight increase */
-  --username-border-radius: 8px; /* More rounded corners */
+  --username-vertical-padding: 2px;
+  --username-horizontal-padding: 8px;
+  --username-border-radius: 8px;
   --username-plugin-suffix: "| @";
-}
-
-/* 1. Shimmer Animation Keyframes */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  /* Removed old halo variables for simplicity */
 }
 
 .vc-smyn-suffix {
   color: currentColor;
-  opacity: 0.6; /* Slightly less transparent */
+  opacity: 0.6;
 
   &::before {
     content: var(--username-plugin-suffix);
@@ -32,49 +27,51 @@
   border-radius: var(--username-border-radius);
   text-decoration: none;
   
-  /* 2. BASE GLASS STYLES & ANIMATION SETUP */
   position: relative;
-  overflow: hidden; /* Crucial for clipping the shimmer effect */
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); /* Smooth transition */
-  will-change: transform, box-shadow; /* Performance optimization */
+  overflow: hidden; 
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow, backdrop-filter;
   
-  /* FROSTED GLASS EFFECT */
+  /* Frosted Glass Effect */
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   
-  /* Subtle light border/inner shadow for depth */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.15); 
+
+  /* 1. Halo Effect Pseudo-element (Floating Layer) */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -5px; /* Extends outward to surround the element */
+    border-radius: inherit;
+    
+    background: transparent;
+    box-shadow: 0 0 0 0 transparent; /* Hidden by default */
+    
+    transition: box-shadow 0.4s ease-out, transform 0.4s ease-out;
+    z-index: 0; /* Ensures the halo floats above the glass background, but behind the text content */
+  }
 
   &:hover {
     text-decoration: none;
-    /* Lifted shadow and slight scale on hover */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-    transform: translateY(-1px) scale(1.01);
+    transform: translateY(-2px) scale(1.02);
     
-    /* 3. SHIMMER EFFECT ON HOVER */
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      /* Moving white gradient for shimmer */
-      background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      animation: shimmer 1.5s ease-in-out infinite;
+    /* 2. Activate Halo on Hover (Normal User) */
+    &::before {
+      /* Create a multi-layered box-shadow halo using currentColor (the user's role color) */
+      box-shadow: 
+        /* Outer spread glow */
+        0 0 30px 10px color-mix(in srgb, currentColor 30%, transparent), 
+        /* Inner intense glow */
+        0 0 15px 5px color-mix(in srgb, currentColor 60%, transparent); 
+      transform: scale(1.05); /* Halo expands slightly */
     }
   }
 }
 
 /* Normal Usernames: Frosted Tint */
 .username_c19a55:not(.convenienceGlowGradient_e5de78) {
-  /* Tint the glass background using the currentColor for a subtle color effect */
   background-color: color-mix(in srgb, currentColor 5%, rgba(255, 255, 255, 0.15));
 
   &:hover {
@@ -85,14 +82,12 @@
 /* Gradient Usernames */
 .convenienceGlowGradient_e5de78 {
   z-index: 0;
-  /* Text gradient remains the same */
   background-image: linear-gradient(90deg, var(--custom-gradient-color-1), var(--custom-gradient-color-2), var(--custom-gradient-color-3));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
   .vc-smyn-suffix {
-    /* Suffix text gradient remains the same */
     background-image: linear-gradient(90deg, var(--custom-gradient-color-1), var(--custom-gradient-color-2), var(--custom-gradient-color-3));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -102,20 +97,31 @@
   &:hover {
     text-decoration: none !important;
   }
+  
+  /* 3. Gradient Halo Override - Uses the middle gradient color for the glow */
+  &:hover::before {
+    --gradient-halo-color: var(--custom-gradient-color-2); /* Use middle color for glow */
+    
+    box-shadow: 
+        /* Outer spread glow */
+        0 0 30px 10px color-mix(in srgb, var(--gradient-halo-color) 30%, transparent), 
+        /* Inner intense glow */
+        0 0 15px 5px color-mix(in srgb, var(--gradient-halo-color) 60%, transparent); 
+    transform: scale(1.05);
+  }
 
-  &::before {
+  /* Internal Gradient Background (z-index: -1 via the selector) */
+  &::after { 
     content: "";
-    z-index: -1;
+    z-index: -1; 
     position: absolute;
     inset: 0;
     border-radius: inherit;
     transition: background 0.4s ease;
     
-    /* BACKGROUND FROSTED GLASS TINT */
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     
-    /* Background is a subtle tint of the gradient colors */
     background: linear-gradient(
       90deg,
       color-mix(in srgb, var(--custom-gradient-color-1) 10%, transparent),
@@ -124,8 +130,7 @@
     );
   }
 
-  &:hover::before {
-    /* Enhance the background tint on hover */
+  &:hover::after {
     background: linear-gradient(
       90deg,
       color-mix(in srgb, var(--custom-gradient-color-1) 20%, transparent),
