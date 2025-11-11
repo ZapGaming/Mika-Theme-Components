@@ -10,7 +10,7 @@
     --bubble-bg-light: #e6e6e6;
     --bubble-accent-dark: #3a3c42;
     --bubble-accent-light: #d8d8d8;
-    --bubble-contrast-value: 15; /* High contrast needed for the merge effect */
+    --bubble-contrast-value: 15; /* High contrast needed for the merging effect */
     --bubble-blur-value: 12px; /* Blur strength */
 }
 
@@ -86,24 +86,58 @@ html.theme-light .nav__08434 > .navList__08434 > button {
 }
 
 
-/* 4. Scrollbar and Shortcut Bar Theming (Must also participate in the blur/contrast) */
+/* 4. Selected Emoji Item Highlight */
 
-/* Selected Emoji Item */
 .emojiItem_fc7141.emojiItemSelected_fc7141 {
     /* Using a distinct color to clearly show the selection highlight */
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 12px;
 }
 
+
+/* 5. CONTENT LAYOUT ADJUSTMENTS (New Layout Edits for Bubble Integration) */
+
+/* General padding for the main scrollable content area */
+.scroller_c0e32c {
+    padding: 10px;
+}
+
+/* Search Bar (Targeting common Discord search input classes) */
+.searchBar__80d22,
+.searchBar_c0e32c {
+    /* Make the search bar look like a rounded pill floating in the liquid */
+    border-radius: 20px;
+    margin: 10px 10px 15px 10px; /* Add margin around it */
+    padding: 5px 15px; /* Adjust padding for visual size */
+    background-color: var(--bubble-accent-dark); /* Use accent color for better merging */
+}
+
+/* Category Headers (The text labels like "Frequently Used") */
+.header_c95d97,
+.categoryHeader_c0e32c {
+    /* Give category headers a bit of breathing room and rounding */
+    padding: 4px 12px;
+    margin: 10px 8px;
+    border-radius: 15px;
+    /* Ensure the text stands out */
+    color: white !important;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    background: transparent; /* Rely on the gooey effect for visual merging */
+}
+
+/* 6. Shortcut Bar Repositioning (To flow naturally with the content) */
+
 /* Shortcut/Unicode Bar - Also a rounded 'blob' */
 .unicodeShortcut_b9ee0c,
 .standardStickerShortcut__3ad28 {
     border-radius: 20px;
     margin: 10px;
-    padding: 5px 15px; /* Add padding for content */
-    width: auto; /* Allow natural width */
-    /* Position fix: Remove the fragile 'top: 330px' absolute positioning
-       This bar should flow naturally within the picker now. */
+    padding: 5px 15px;
+    width: auto;
+    /* Important Layout Change: Removing the original absolute positioning
+       to let it flow naturally with the search and content above it. */
+    top: auto !important;
+    position: relative !important;
 }
 
 /* Shortcut Bar Colors */
