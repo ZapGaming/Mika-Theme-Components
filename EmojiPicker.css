@@ -1,32 +1,47 @@
 /*
- * 🫧 LIQUID BUBBLE / SLOSH EFFECT EMOTION PICKER 🫧
- * Uses CSS filter: contrast() and filter: blur() to create a fluid, merging, "sloshing" look.
- * Optimized for Vencord/DVR compatibility.
+ * 🫧 LIQUID SLOSH / 4D LAYERED EMOTION PICKER 🫧
+ * - Full width container restored.
+ * - Search bar moved to the bottom using absolute positioning.
+ * - "4D" effect achieved via complex box-shadows and layering.
 */
 
 :root {
     /* Define base colors */
-    --bubble-bg-dark: #1f2023; /* Less transparent background */
+    --bubble-bg-dark: #1f2023;
     --bubble-bg-light: #e6e6e6;
-    --bubble-accent-dark: #3a3c42;
+    --bubble-accent-dark: #3a3c42; /* Used for floating elements */
     --bubble-accent-light: #d8d8d8;
-    --bubble-contrast-value: 15; /* High contrast needed for the merging effect */
-    --bubble-blur-value: 12px; /* Blur strength */
+    --slosh-layer-color-dark: #292b2f; /* Background for the contrast layer */
+    --slosh-layer-color-light: #f0f0f0;
+
+    --bubble-contrast-value: 12; /* Slightly reduced contrast */
+    --bubble-blur-value: 10px;
+    --standard-radius: 12px;
 }
 
-/* 1. Main Bubble Container & Gooey Filter Application */
+/* 1. Main Container & 4D Depth/Full-Width Reset */
 
 /* Target the main picker wrapper */
 .drawerSizingWrapper__08434 {
-    /* Set up the filter context */
-    filter: contrast(var(--bubble-contrast-value)); /* Crucial for merging effect */
-    transition: filter 0.3s ease; /* Subtle transition for smoothness */
+    /* Reset rounding to be standard, full-width */
+    border-radius: var(--standard-radius);
+    padding: 0;
 
-    /* The main bubble shape */
-    border-radius: 40px; /* Extreme rounding for bubble shape */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow to emphasize 3D bubble */
+    /* Set context for absolute positioning */
+    position: relative;
+    /* Enable 3D transforms on children */
+    perspective: 1000px; 
 
-    /* Ensure background is slightly opaque for the effect */
+    /* Complex, layered box-shadow for 4D/depth effect */
+    box-shadow:
+        /* Outer shadow (simulates light from top) */
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        /* Deep depth shadow */
+        0 0 40px rgba(0, 0, 0, 0.6),
+        /* Subtle inner highlight (simulates plastic/glass surface) */
+        inset 0 1px 3px rgba(255, 255, 255, 0.05);
+
+    /* Ensure background is slightly opaque for the filter context */
     backdrop-filter: blur(15px);
 }
 
@@ -38,14 +53,13 @@ html.theme-light .drawerSizingWrapper__08434 {
     background: var(--bubble-bg-light);
 }
 
-/* 2. Inner Wrapper (The Blurring Surface) */
-/* The inner wrapper gets the blur, which is then made visible by the contrast on the parent. */
+/* 2. Inner Wrapper (The Sloshing/Blending Surface) */
 .wrapper_c0e32c {
-    /* Inner blur is necessary for the merging effect */
-    filter: blur(var(--bubble-blur-value));
-    background: transparent !important; /* Must be transparent to let the main container's contrast effect work */
-    border-radius: 40px; /* Match the outer radius */
-    padding: 10px; /* Add internal padding to contain the sloshing elements */
+    /* Apply the gooey filters here to affect the floating tabs and items */
+    filter: contrast(var(--bubble-contrast-value)) blur(var(--bubble-blur-value));
+    background: transparent !important; /* Must be transparent to let the contrast work */
+    border-radius: var(--standard-radius);
+    padding: 0;
 }
 
 
@@ -53,20 +67,23 @@ html.theme-light .drawerSizingWrapper__08434 {
 
 /* Tab Container */
 .nav__08434 {
-    padding: 10px; /* Add padding to keep the buttons off the edge */
-    display: flex; /* Ensure the buttons are siblings in a flex row */
-    gap: 8px; /* Space between the sloshing buttons */
+    padding: 8px;
+    display: flex;
+    gap: 6px;
+    /* Lift the navigation bar layer up */
+    transform: translateZ(50px);
+    position: relative; /* Ensure tabs are layered correctly */
 }
 
-/* Individual Tab Buttons - Must be rounded to 'slosh' */
+/* Individual Tab Buttons - Rounded blobs floating over the liquid */
 .nav__08434 > .navList__08434 > button {
     flex: 1;
-    line-height: 40px;
-    height: 40px;
+    line-height: 36px;
+    height: 36px;
     margin: 0;
-    /* The key to the sloshing effect is high contrast and rounded elements */
-    border-radius: 20px; /* Makes them look like small blobs */
+    border-radius: 18px; /* Small blob shape */
     transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle lift shadow */
 }
 
 /* Tab Button Colors & Hover (The 'Slosh' Action) */
@@ -77,67 +94,91 @@ html.theme-light .nav__08434 > .navList__08434 > button {
     background: var(--bubble-accent-light);
 }
 
-/* Sloshing Effect on Hover: Merge harder and change shape slightly */
+/* Sloshing/Push Effect on Hover */
 .nav__08434 > .navList__08434 > button:hover {
-    transform: scale(1.05); /* Grow slightly on hover */
-    /* Enhance the color blend effect */
+    transform: scale(1.08) translateZ(55px); /* Grow and move forward in Z-space */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     html.theme-dark & { background: rgba(255, 255, 255, 0.4); }
     html.theme-light & { background: rgba(0, 0, 0, 0.4); }
 }
 
 
 /* 4. Selected Emoji Item Highlight */
-
 .emojiItem_fc7141.emojiItemSelected_fc7141 {
-    /* Using a distinct color to clearly show the selection highlight */
     background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 
-/* 5. CONTENT LAYOUT ADJUSTMENTS (New Layout Edits for Bubble Integration) */
+/* 5. CONTENT LAYOUT ADJUSTMENTS (Main Scroller and Content) */
 
 /* General padding for the main scrollable content area */
 .scroller_c0e32c {
-    padding: 10px;
+    /* Add large padding at the bottom to ensure content doesn't get hidden */
+    /* under the absolutely positioned search bar (approx. 50px height + margin) */
+    padding: 10px 10px 65px 10px;
+    position: relative; /* Important for scroll behavior */
 }
 
-/* Search Bar (Targeting common Discord search input classes) */
-.searchBar__80d22,
-.searchBar_c0e32c {
-    /* Make the search bar look like a rounded pill floating in the liquid */
-    border-radius: 20px;
-    margin: 10px 10px 15px 10px; /* Add margin around it */
-    padding: 5px 15px; /* Adjust padding for visual size */
-    background-color: var(--bubble-accent-dark); /* Use accent color for better merging */
-}
-
-/* Category Headers (The text labels like "Frequently Used") */
+/* Category Headers (Looks like submerged text) */
 .header_c95d97,
 .categoryHeader_c0e32c {
-    /* Give category headers a bit of breathing room and rounding */
-    padding: 4px 12px;
-    margin: 10px 8px;
-    border-radius: 15px;
-    /* Ensure the text stands out */
+    padding: 4px 8px;
+    margin: 8px 0;
+    border-radius: 8px;
     color: white !important;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    background: transparent; /* Rely on the gooey effect for visual merging */
+    background: transparent;
+    /* Push category headers slightly back */
+    transform: translateZ(10px);
 }
 
-/* 6. Shortcut Bar Repositioning (To flow naturally with the content) */
+/* 6. Search Bar Repositioning to the Bottom and 4D Styling */
 
-/* Shortcut/Unicode Bar - Also a rounded 'blob' */
+.searchBar__80d22,
+.searchBar_c0e32c {
+    /* ABSOLUTE POSITIONING TO THE BOTTOM */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* Ensure it stays on top */
+
+    /* 4D Styling - Looks like a floating panel at the bottom */
+    border-radius: var(--standard-radius);
+    border-bottom-left-radius: var(--standard-radius);
+    border-bottom-right-radius: var(--standard-radius);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    margin: 0; /* Remove previous margins */
+    padding: 10px 15px;
+    height: 55px;
+
+    /* Base color (Dark for Dark theme, Light for Light theme) */
+    html.theme-dark & { background: var(--bubble-accent-dark); }
+    html.theme-light & { background: var(--bubble-accent-light); }
+
+    /* Raise it with shadow */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+    /* Push it slightly forward in 3D space */
+    transform: translateZ(100px);
+}
+
+/* 7. Shortcut Bar Repositioning (Floating above content) */
+
 .unicodeShortcut_b9ee0c,
 .standardStickerShortcut__3ad28 {
-    border-radius: 20px;
+    border-radius: 18px;
     margin: 10px;
     padding: 5px 15px;
     width: auto;
-    /* Important Layout Change: Removing the original absolute positioning
-       to let it flow naturally with the search and content above it. */
-    top: auto !important;
     position: relative !important;
+    top: auto !important;
+    z-index: 50; /* Above regular content, below search bar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Push it forward in 3D space */
+    transform: translateZ(30px);
 }
 
 /* Shortcut Bar Colors */
@@ -147,5 +188,7 @@ html.theme-dark .standardStickerShortcut__3ad28 {
 }
 html.theme-light .unicodeShortcut_b9ee0c,
 html.theme-light .standardStickerShortcut__3ad28 {
+    background: var(--bubble-accent-light);
+}
     background: var(--bubble-accent-light);
 }
