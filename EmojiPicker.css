@@ -1,10 +1,3 @@
-/*
- * 🫧 LIQUID SLOSH / 4D LAYERED EMOTION PICKER 🫧
- * - Full width container restored.
- * - Search bar moved to the bottom using absolute positioning.
- * - "4D" effect achieved via complex box-shadows and layering.
-*/
-
 :root {
     /* Define base colors */
     --bubble-bg-dark: #1f2023;
@@ -110,14 +103,39 @@ html.theme-light .nav__08434 > .navList__08434 > button {
 }
 
 
-/* 5. CONTENT LAYOUT ADJUSTMENTS (Main Scroller and Content) */
+/* 5. CONTENT LAYOUT ADJUSTMENTS (Main Scroller, Search Bar, and Content) */
 
 /* General padding for the main scrollable content area */
 .scroller_c0e32c {
-    /* Add large padding at the bottom to ensure content doesn't get hidden */
-    /* under the absolutely positioned search bar (approx. 50px height + margin) */
-    padding: 10px 10px 65px 10px;
-    position: relative; /* Important for scroll behavior */
+    /* RESTORED: Standard padding now that the search bar flows at the top. */
+    padding: 10px;
+    position: relative;
+}
+
+/* Search Bar (Now flows naturally at the top of the scroller) */
+.searchBar__80d22,
+.searchBar_c0e32c {
+    /* LAYOUT: Reset absolute positioning and define standard flow margins */
+    position: relative; 
+    bottom: auto; 
+    left: auto;
+    right: auto;
+    margin: 0 10px 15px 10px; /* Margin around the search bar */
+    
+    /* 4D Styling - Rounded pill shape */
+    border-radius: var(--standard-radius);
+    padding: 10px 15px;
+    height: 55px;
+    z-index: 90; /* High z-index to float over content */
+
+    /* Base color (Dark for Dark theme, Light for Light theme) */
+    html.theme-dark & { background: var(--bubble-accent-dark); }
+    html.theme-light & { background: var(--bubble-accent-light); }
+
+    /* Raise it with shadow (downwards shadow now) */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+    /* Push it slightly forward in 3D space */
+    transform: translateZ(100px);
 }
 
 /* Category Headers (Looks like submerged text) */
@@ -133,37 +151,8 @@ html.theme-light .nav__08434 > .navList__08434 > button {
     transform: translateZ(10px);
 }
 
-/* 6. Search Bar Repositioning to the Bottom and 4D Styling */
+/* 6. Placeholder for former Section 6 */
 
-.searchBar__80d22,
-.searchBar_c0e32c {
-    /* ABSOLUTE POSITIONING TO THE BOTTOM */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100; /* Ensure it stays on top */
-
-    /* 4D Styling - Looks like a floating panel at the bottom */
-    border-radius: var(--standard-radius);
-    border-bottom-left-radius: var(--standard-radius);
-    border-bottom-right-radius: var(--standard-radius);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-
-    margin: 0; /* Remove previous margins */
-    padding: 10px 15px;
-    height: 55px;
-
-    /* Base color (Dark for Dark theme, Light for Light theme) */
-    html.theme-dark & { background: var(--bubble-accent-dark); }
-    html.theme-light & { background: var(--bubble-accent-light); }
-
-    /* Raise it with shadow */
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
-    /* Push it slightly forward in 3D space */
-    transform: translateZ(100px);
-}
 
 /* 7. Shortcut Bar Repositioning (Floating above content) */
 
@@ -188,7 +177,5 @@ html.theme-dark .standardStickerShortcut__3ad28 {
 }
 html.theme-light .unicodeShortcut_b9ee0c,
 html.theme-light .standardStickerShortcut__3ad28 {
-    background: var(--bubble-accent-light);
-}
     background: var(--bubble-accent-light);
 }
