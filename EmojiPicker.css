@@ -1,0 +1,117 @@
+/*
+ * 🫧 LIQUID BUBBLE / SLOSH EFFECT EMOTION PICKER 🫧
+ * Uses CSS filter: contrast() and filter: blur() to create a fluid, merging, "sloshing" look.
+ * Optimized for Vencord/DVR compatibility.
+*/
+
+:root {
+    /* Define base colors */
+    --bubble-bg-dark: #1f2023; /* Less transparent background */
+    --bubble-bg-light: #e6e6e6;
+    --bubble-accent-dark: #3a3c42;
+    --bubble-accent-light: #d8d8d8;
+    --bubble-contrast-value: 15; /* High contrast needed for the merge effect */
+    --bubble-blur-value: 12px; /* Blur strength */
+}
+
+/* 1. Main Bubble Container & Gooey Filter Application */
+
+/* Target the main picker wrapper */
+.drawerSizingWrapper__08434 {
+    /* Set up the filter context */
+    filter: contrast(var(--bubble-contrast-value)); /* Crucial for merging effect */
+    transition: filter 0.3s ease; /* Subtle transition for smoothness */
+
+    /* The main bubble shape */
+    border-radius: 40px; /* Extreme rounding for bubble shape */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow to emphasize 3D bubble */
+
+    /* Ensure background is slightly opaque for the effect */
+    backdrop-filter: blur(15px);
+}
+
+/* Apply base colors */
+html.theme-dark .drawerSizingWrapper__08434 {
+    background: var(--bubble-bg-dark);
+}
+html.theme-light .drawerSizingWrapper__08434 {
+    background: var(--bubble-bg-light);
+}
+
+/* 2. Inner Wrapper (The Blurring Surface) */
+/* The inner wrapper gets the blur, which is then made visible by the contrast on the parent. */
+.wrapper_c0e32c {
+    /* Inner blur is necessary for the merging effect */
+    filter: blur(var(--bubble-blur-value));
+    background: transparent !important; /* Must be transparent to let the main container's contrast effect work */
+    border-radius: 40px; /* Match the outer radius */
+    padding: 10px; /* Add internal padding to contain the sloshing elements */
+}
+
+
+/* 3. Navigation Tabs (The 'Sloshing' Elements) */
+
+/* Tab Container */
+.nav__08434 {
+    padding: 10px; /* Add padding to keep the buttons off the edge */
+    display: flex; /* Ensure the buttons are siblings in a flex row */
+    gap: 8px; /* Space between the sloshing buttons */
+}
+
+/* Individual Tab Buttons - Must be rounded to 'slosh' */
+.nav__08434 > .navList__08434 > button {
+    flex: 1;
+    line-height: 40px;
+    height: 40px;
+    margin: 0;
+    /* The key to the sloshing effect is high contrast and rounded elements */
+    border-radius: 20px; /* Makes them look like small blobs */
+    transition: all 0.2s ease;
+}
+
+/* Tab Button Colors & Hover (The 'Slosh' Action) */
+html.theme-dark .nav__08434 > .navList__08434 > button {
+    background: var(--bubble-accent-dark);
+}
+html.theme-light .nav__08434 > .navList__08434 > button {
+    background: var(--bubble-accent-light);
+}
+
+/* Sloshing Effect on Hover: Merge harder and change shape slightly */
+.nav__08434 > .navList__08434 > button:hover {
+    transform: scale(1.05); /* Grow slightly on hover */
+    /* Enhance the color blend effect */
+    html.theme-dark & { background: rgba(255, 255, 255, 0.4); }
+    html.theme-light & { background: rgba(0, 0, 0, 0.4); }
+}
+
+
+/* 4. Scrollbar and Shortcut Bar Theming (Must also participate in the blur/contrast) */
+
+/* Selected Emoji Item */
+.emojiItem_fc7141.emojiItemSelected_fc7141 {
+    /* Using a distinct color to clearly show the selection highlight */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+}
+
+/* Shortcut/Unicode Bar - Also a rounded 'blob' */
+.unicodeShortcut_b9ee0c,
+.standardStickerShortcut__3ad28 {
+    border-radius: 20px;
+    margin: 10px;
+    padding: 5px 15px; /* Add padding for content */
+    width: auto; /* Allow natural width */
+    /* Position fix: Remove the fragile 'top: 330px' absolute positioning
+       This bar should flow naturally within the picker now. */
+}
+
+/* Shortcut Bar Colors */
+html.theme-dark .unicodeShortcut_b9ee0c,
+html.theme-dark .standardStickerShortcut__3ad28 {
+    background: var(--bubble-accent-dark);
+}
+html.theme-light .unicodeShortcut_b9ee0c,
+html.theme-light .standardStickerShortcut__3ad28 {
+    background: var(--bubble-accent-light);
+}
