@@ -1,181 +1,229 @@
+/*
+ * 🫧 VIBRANT GLOW BUBBLE EMOTION PICKER 🫧
+ * - Highly rounded, multi-gradient design with intense colorful glow.
+ * - Filters (contrast/blur) removed, emphasizing box-shadow and transform effects.
+*/
+
 :root {
-    /* Define base colors */
-    --bubble-bg-dark: #1f2023;
-    --bubble-bg-light: #e6e6e6;
-    --bubble-accent-dark: #3a3c42; /* Used for floating elements */
-    --bubble-accent-light: #d8d8d8;
-    --slosh-layer-color-dark: #292b2f; /* Background for the contrast layer */
-    --slosh-layer-color-light: #f0f0f0;
+    /* Base color definitions kept for simpler elements */
+    --base-color-dark: #1f2023;
+    --base-color-light: #e6e6e6;
+    
+    /* VIBRANT GRADIENT COLORS */
+    --outer-g-start: rgba(100, 180, 255, 0.9); /* Sky Blue */
+    --outer-g-mid1: rgba(150, 80, 200, 0.9);  /* Lavender Purple */
+    --outer-g-mid2: rgba(255, 100, 150, 0.9); /* Pink */
+    --outer-g-end: rgba(255, 200, 80, 0.9);   /* Golden Yellow */
 
-    --bubble-contrast-value: 12; /* Slightly reduced contrast */
-    --bubble-blur-value: 10px;
-    --standard-radius: 12px;
+    --inner-g-start: rgba(255, 150, 100, 0.8); /* Orange */
+    --inner-g-mid1: rgba(255, 220, 100, 0.8);  /* Light Yellow */
+    --inner-g-mid2: rgba(100, 255, 180, 0.8);  /* Mint Green */
+    --inner-g-end: rgba(100, 180, 255, 0.8);   /* Sky Blue */
 }
 
-/* 1. Main Container & 4D Depth/Full-Width Reset */
-
-/* Target the main picker wrapper */
+/* 1. Main Picker Container (Outer Layer - Based on .menu_c1e9c4) */
 .drawerSizingWrapper__08434 {
-    /* Reset rounding to be standard, full-width */
-    border-radius: var(--standard-radius);
-    padding: 0;
+    /* Use the multi-color gradient for a vibrant base */
+    background: linear-gradient(135deg,
+        var(--outer-g-start) 0%,
+        var(--outer-g-mid1) 40%,
+        var(--outer-g-mid2) 80%,
+        var(--outer-g-end) 100%
+    );
 
-    /* Set context for absolute positioning */
+    border-radius: 25px; /* Super bubbly */
+    overflow: hidden; /* Contains inner elements neatly */
     position: relative;
-    /* Enable 3D transforms on children */
-    perspective: 1000px; 
-
-    /* Complex, layered box-shadow for 4D/depth effect */
-    box-shadow:
-        /* Outer shadow (simulates light from top) */
-        0 8px 16px rgba(0, 0, 0, 0.4),
-        /* Deep depth shadow */
-        0 0 40px rgba(0, 0, 0, 0.6),
-        /* Subtle inner highlight (simulates plastic/glass surface) */
-        inset 0 1px 3px rgba(255, 255, 255, 0.05);
-
-    /* Ensure background is slightly opaque for the filter context */
-    backdrop-filter: blur(15px);
-}
-
-/* Apply base colors */
-html.theme-dark .drawerSizingWrapper__08434 {
-    background: var(--bubble-bg-dark);
-}
-html.theme-light .drawerSizingWrapper__08434 {
-    background: var(--bubble-bg-light);
-}
-
-/* 2. Inner Wrapper (The Sloshing/Blending Surface) */
-.wrapper_c0e32c {
-    /* Apply the gooey filters here to affect the floating tabs and items */
-    filter: contrast(var(--bubble-contrast-value)) blur(var(--bubble-blur-value));
-    background: transparent !important; /* Must be transparent to let the contrast work */
-    border-radius: var(--standard-radius);
+    perspective: 1000px;
     padding: 0;
+
+    /* Complex, glowing box-shadow for "4D" depth and glow */
+    box-shadow:
+        0 8px 30px rgba(100, 180, 255, 0.6), /* Blue glow */
+        0 0 20px rgba(255, 100, 150, 0.5), /* Pink inner glow */
+        inset 0 0 10px rgba(255, 255, 255, 0.2); /* Inner highlight */
+    
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(8px); /* Subtle internal blur kept */
+}
+
+/* Hover Effect for Main Container */
+.drawerSizingWrapper__08434:hover {
+    transform: translateY(-3px) scale(1.02); /* Slight lift and grow */
+    box-shadow:
+        0 12px 40px rgba(100, 180, 255, 0.8), /* More intense blue glow */
+        0 0 25px rgba(255, 100, 150, 0.7), /* More intense pink glow */
+        inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* 2. Inner Wrapper (Content Area - Based on .contentWrapper__08434) */
+.wrapper_c0e32c {
+    /* Applying the second, softer gradient layer */
+    background: linear-gradient(45deg,
+        var(--inner-g-start) 0%,
+        var(--inner-g-mid1) 30%,
+        var(--inner-g-mid2) 60%,
+        var(--inner-g-end) 100%
+    ) !important; 
+    
+    /* FILTERS REMOVED: No more gooey/sloshing effect */
+    filter: none !important; 
+    
+    border-radius: 30px; /* Even more rounded than the outer layer */
+    padding: 15px; /* More internal padding */
+    
+    /* Inner Glow Shadow */
+    box-shadow:
+        0 10px 35px rgba(255, 150, 100, 0.7), /* Orange glow */
+        0 0 25px rgba(100, 255, 180, 0.6), /* Mint inner glow */
+        inset 0 0 12px rgba(255, 255, 255, 0.25); /* Inner highlight */
+    
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect for Inner Wrapper */
+.wrapper_c0e32c:hover {
+    transform: scale(1.01); /* Subtle grow on hover */
+    box-shadow:
+        0 15px 45px rgba(255, 150, 100, 0.9),
+        0 0 30px rgba(100, 255, 180, 0.8),
+        inset 0 0 18px rgba(255, 255, 255, 0.4);
 }
 
 
-/* 3. Navigation Tabs (The 'Sloshing' Elements) */
+/* 3. Navigation Tabs (Small Floating Blobs) */
 
 /* Tab Container */
 .nav__08434 {
-    padding: 8px;
-    display: flex;
-    gap: 6px;
-    /* Lift the navigation bar layer up */
+    padding: 8px 15px; /* Match inner padding and give space */
+    gap: 8px;
     transform: translateZ(50px);
-    position: relative; /* Ensure tabs are layered correctly */
-}
-
-/* Individual Tab Buttons - Rounded blobs floating over the liquid */
-.nav__08434 > .navList__08434 > button {
-    flex: 1;
-    line-height: 36px;
-    height: 36px;
-    margin: 0;
-    border-radius: 18px; /* Small blob shape */
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle lift shadow */
-}
-
-/* Tab Button Colors & Hover (The 'Slosh' Action) */
-html.theme-dark .nav__08434 > .navList__08434 > button {
-    background: var(--bubble-accent-dark);
-}
-html.theme-light .nav__08434 > .navList__08434 > button {
-    background: var(--bubble-accent-light);
-}
-
-/* Sloshing/Push Effect on Hover */
-.nav__08434 > .navList__08434 > button:hover {
-    transform: scale(1.08) translateZ(55px); /* Grow and move forward in Z-space */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    html.theme-dark & { background: rgba(255, 255, 255, 0.4); }
-    html.theme-light & { background: rgba(0, 0, 0, 0.4); }
-}
-
-
-/* 4. Selected Emoji Item Highlight */
-.emojiItem_fc7141.emojiItemSelected_fc7141 {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-}
-
-
-/* 5. CONTENT LAYOUT ADJUSTMENTS (Main Scroller, Search Bar, and Content) */
-
-/* General padding for the main scrollable content area */
-.scroller_c0e32c {
-    /* RESTORED: Standard padding now that the search bar flows at the top. */
-    padding: 10px;
     position: relative;
 }
 
-/* Search Bar (Now flows naturally at the top of the scroller) */
-.searchBar__80d22,
-.searchBar_c0e32c {
-    /* LAYOUT: Reset absolute positioning and define standard flow margins */
-    position: relative; 
-    bottom: auto; 
-    left: auto;
-    right: auto;
-    margin: 0 10px 15px 10px; /* Margin around the search bar */
+/* Individual Tab Buttons - Use a simplified gradient accent */
+.nav__08434 > .navList__08434 > button {
+    flex: 1;
+    line-height: 40px;
+    height: 40px;
+    margin: 0;
+    border-radius: 20px;
     
-    /* 4D Styling - Rounded pill shape */
-    border-radius: var(--standard-radius);
-    padding: 10px 15px;
-    height: 55px;
-    z-index: 90; /* High z-index to float over content */
-
-    /* Base color (Dark for Dark theme, Light for Light theme) */
-    html.theme-dark & { background: var(--bubble-accent-dark); }
-    html.theme-light & { background: var(--bubble-accent-light); }
-
-    /* Raise it with shadow (downwards shadow now) */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
-    /* Push it slightly forward in 3D space */
-    transform: translateZ(100px);
+    background: linear-gradient(90deg,
+        rgba(255, 150, 100, 0.8), /* Orange */
+        rgba(255, 220, 100, 0.8) /* Light Yellow */
+    );
+    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-out;
 }
 
-/* Category Headers (Looks like submerged text) */
+/* Tab Button Hover */
+.nav__08434 > .navList__08434 > button:hover {
+    transform: scale(1.08) translateZ(55px);
+    box-shadow: 0 6px 15px rgba(255, 100, 150, 0.6);
+}
+
+
+/* 4. Selected Emoji Item Highlight & Internal Elements */
+
+/* Emoji/Sticker/Category Selection (New Bubbly Selection Style) */
+.emojiItem_fc7141.emojiItemSelected_fc7141,
+.emojiItem_fc7141.expandCollapseButtonSelected_fc7141,
+.firstPartyCategorySelected__3ad28,
+.stickerCategoryGenericSelected__3ad28 {
+    background: rgba(255, 255, 255, 0.25) !important; /* Brighter highlight with transparency */
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+
+/* 5. CONTENT LAYOUT ADJUSTMENTS (Search Bar & Content Flow) */
+
+/* General padding for the main scrollable content area */
+.scroller_c0e32c {
+    padding: 5px 15px 15px; /* Adjust padding to match inner wrapper (2) */
+    position: relative;
+}
+
+/* Search Bar (Floating Pill - Adapted from user's .unicodeShortcut style) */
+.searchBar__80d22,
+.searchBar_c0e32c {
+    position: relative; 
+    margin: 0 0 15px 0; /* Margin only at the bottom */
+    
+    /* 4D Styling - Rounded pill shape */
+    border-radius: 15px;
+    padding: 10px 15px;
+    height: 50px;
+    z-index: 90; 
+
+    /* New Gradient Style for Search Bar */
+    background: linear-gradient(90deg,
+        rgba(255, 120, 180, 0.7), /* Hot Pink */
+        rgba(120, 180, 255, 0.7) /* Cool Blue */
+    );
+
+    box-shadow: 0 4px 15px rgba(255, 120, 180, 0.4);
+    transform: translateZ(100px);
+    transition: all 0.2s ease-out;
+}
+.searchBar__80d22:hover,
+.searchBar_c0e32c:hover {
+    transform: scale(1.01) translateZ(100px); /* Subtle pop on hover */
+    box-shadow: 0 6px 20px rgba(255, 120, 180, 0.6);
+}
+
+
+/* Category Headers (Submerged, rounded text) */
 .header_c95d97,
 .categoryHeader_c0e32c {
+    background-color: transparent;
     padding: 4px 8px;
     margin: 8px 0;
-    border-radius: 8px;
+    border-radius: 15px; /* Ensure internal elements are also rounded */
     color: white !important;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    background: transparent;
-    /* Push category headers slightly back */
     transform: translateZ(10px);
 }
 
 /* 6. Placeholder for former Section 6 */
 
 
-/* 7. Shortcut Bar Repositioning (Floating above content) */
+/* 7. Shortcut Bar (Floating Pill) */
 
 .unicodeShortcut_b9ee0c,
 .standardStickerShortcut__3ad28 {
-    border-radius: 18px;
-    margin: 10px;
+    border-radius: 15px;
+    margin: 10px 0;
     padding: 5px 15px;
     width: auto;
     position: relative !important;
     top: auto !important;
-    z-index: 50; /* Above regular content, below search bar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    /* Push it forward in 3D space */
+    z-index: 50; 
+    
+    /* New Gradient Style for Shortcut Bar */
+    background: linear-gradient(90deg,
+        rgba(255, 120, 180, 0.7), /* Hot Pink */
+        rgba(120, 180, 255, 0.7) /* Cool Blue */
+    );
+    
+    box-shadow: 0 4px 15px rgba(255, 120, 180, 0.4);
     transform: translateZ(30px);
+    transition: all 0.2s ease-out;
+}
+.unicodeShortcut_b9ee0c:hover,
+.standardStickerShortcut__3ad28:hover {
+    transform: scale(1.05) translateZ(30px); /* Pop out on hover */
+    box-shadow: 0 6px 20px rgba(255, 120, 180, 0.6);
 }
 
-/* Shortcut Bar Colors */
-html.theme-dark .unicodeShortcut_b9ee0c,
-html.theme-dark .standardStickerShortcut__3ad28 {
-    background: var(--bubble-accent-dark);
-}
-html.theme-light .unicodeShortcut_b9ee0c,
-html.theme-light .standardStickerShortcut__3ad28 {
-    background: var(--bubble-accent-light);
+/* Additional Internal Elements to ensure rounding */
+.inspector_c0e32c, /* Corrected class for inspector */
+.wrapper__14245, /* Unknown class, added just in case */
+.header__8ef02, /* Unknown class, added just in case */
+.container_fed6d3, /* Unknown class, added just in case */
+.header_fed6d3 { /* Unknown class, added just in case */
+    background-color: transparent !important;
+    border-radius: 15px;
 }
